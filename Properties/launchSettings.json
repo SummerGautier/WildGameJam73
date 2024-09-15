@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "WildingGameJam73": {
+      "commandName": "Project"
+    },
+    "Debug Profile Glass Factory": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\summe\\Downloads\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}
