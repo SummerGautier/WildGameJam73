@@ -8,7 +8,7 @@ public partial class InputTranslator : Node
     public delegate void UserJumpInputEventHandler();
 
     [Signal]
-    public delegate void UserRunInputEventHandler(MovementSystem.CardinalDirection direction);
+    public delegate void UserRunInputEventHandler(MovementSystem.Cardinal direction);
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -22,29 +22,29 @@ public partial class InputTranslator : Node
             EmitSignal(SignalName.UserJumpInput);
         }
 
-        MovementSystem.CardinalDirection cardinal = MovementSystem.CardinalDirection.None;
+        MovementSystem.Cardinal cardinal = MovementSystem.Cardinal.None;
 
         if (Input.IsActionPressed("run_right"))
         {
-            cardinal = cardinal | MovementSystem.CardinalDirection.Right;
+            cardinal = cardinal | MovementSystem.Cardinal.Right;
         }
 
         if (Input.IsActionPressed("run_left"))
         {
-            cardinal = cardinal | MovementSystem.CardinalDirection.Left;
+            cardinal = cardinal | MovementSystem.Cardinal.Left;
         }
 
         if (Input.IsActionPressed("run_towards"))
         {
-            cardinal = cardinal | MovementSystem.CardinalDirection.Towards;
+            cardinal = cardinal | MovementSystem.Cardinal.Towards;
         }
 
         if (Input.IsActionPressed("run_away"))
         {
-            cardinal = cardinal | MovementSystem.CardinalDirection.Away;
+            cardinal = cardinal | MovementSystem.Cardinal.Away;
         }
 
-        if (cardinal > MovementSystem.CardinalDirection.None)
+        if (cardinal > MovementSystem.Cardinal.None)
         {
             EmitSignal(SignalName.UserRunInput, (int)cardinal);
         }

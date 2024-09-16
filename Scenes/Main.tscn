@@ -11,4 +11,4 @@ position = Vector2(0, 800)
 [node name="Player" parent="." instance=ExtResource("1_bheve")]
 position = Vector2(163, 652)
 
-[connection signal="area_entered" from="AssemblyLine" to="Player" method="OnAssemblyLineEntered"]
+[editable path="Player"]
