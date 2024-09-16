@@ -121,19 +121,20 @@ public partial class MovementSystem : Node
         // only jump if we aren't already
         if (_currentMovement != MovementType.JUMP)
         {
-            _currentMovement = MovementType.JUMP;
-            _jumpStartPosition = _player.GlobalPosition;
+            _jumpStartPosition = new Vector2(_player.GlobalPosition.X, _player.GlobalPosition.Y);
             _jumpPathDelta = 0;
             _landingLine.UpdateLandingAxis(_player.GlobalPosition.Y);
+            _currentMovement = MovementType.JUMP;
         }
     }
 
     public void OnJumpLand(Area2D area)
     {
-        if (_currentMovement == MovementType.JUMP)
+        if (_currentMovement == MovementType.JUMP && _jumpPathDelta > 50)
         {
             _currentMovement = MovementType.IDLE;
             _player.GlobalPosition = new Vector2(_player.GlobalPosition.X, _landingLine.GetSurfaceOfLandingLine());
+            //_landingLine.UpdateLandingAxis(DisplayServer.WindowGetSize().Y);
         }
     }
 
@@ -236,12 +237,12 @@ public partial class MovementSystem : Node
             // offset y-axis by the jumper's height and the height of the landing line
             this._y_axis = y_axis + (_jumperHeight / 2) + (_height / 2);
             //Only move part of the way there, to allow player to escape, avoiding premature collision
-            this.GlobalPosition = new Vector2(Vector2.Zero.X, this._y_axis -_height);
+            this.GlobalPosition = new Vector2(Vector2.Zero.X, this._y_axis);
         }
 
         public override void _Process(double delta)
         {
-            this.GlobalPosition.MoveToward(new Vector2(0, _y_axis), (float)delta);
+           // this.GlobalPosition.MoveToward(new Vector2(0, _y_axis), (float)delta);
         }
 
         public float GetSurfaceOfLandingLine()

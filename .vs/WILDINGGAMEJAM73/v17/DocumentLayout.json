@@ -58,8 +58,7 @@
               "RelativeToolTip": "Scripts\\Lines.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T00:45:24.17Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-15T00:45:24.17Z"
             },
             {
               "$type": "Document",
@@ -71,8 +70,7 @@
               "RelativeToolTip": "Scripts\\Graph.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-14T21:56:33.234Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-14T21:56:33.234Z"
             },
             {
               "$type": "Document",
@@ -82,7 +80,7 @@
               "RelativeDocumentMoniker": "Scripts\\MovementSystem.cs",
               "ToolTip": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\MovementSystem.cs",
               "RelativeToolTip": "Scripts\\MovementSystem.cs",
-              "ViewState": "AgIAAMoAAAAAAAAAAAAcwOoAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAowIgAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-14T15:55:05.964Z",
               "EditorCaption": ""
@@ -97,8 +95,7 @@
               "RelativeToolTip": "Scripts\\InputTranslator.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAxwC4AAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-14T15:45:03.718Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-14T15:45:03.718Z"
             },
             {
               "$type": "Document",
@@ -110,8 +107,7 @@
               "RelativeToolTip": "Scripts\\Player.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T14:12:36.816Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T14:12:36.816Z"
             }
           ]
         }
