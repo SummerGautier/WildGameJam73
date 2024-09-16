@@ -10,13 +10,13 @@ public partial class MovementSystem : Node
     [Export]
     private float _runSpeed = 500f;
     [Export]
-    private float _jumpSpeed = 500f;
+    private float _jumpSpeedPercentage = 1f;
 
     [ExportGroup("Jump Properties")]
     [Export]
-    float _jumpCurveWidth = 0.005f;
+    float _jumpCurveWidth = 100f;
     [Export]
-    float _jumpCurveHeight = 0.1f;
+    float _jumpCurveHeight = 200f;
 
     [ExportGroup("Debug Settings")]
     [Export]
@@ -24,8 +24,12 @@ public partial class MovementSystem : Node
 
     // internal use-only
     private Vector2 _jumpStartPosition;
+    private Vector2 _jumpEndPosition;
+
     private double _jumpPathDelta;
-    private LandingLine _landingLine;
+    private Vector2 _jumpCurveControl0;
+    private Vector2 _jumpCurveControl1;
+    //private LandingLine _landingLine;
 
     private Cardinal _direction;
 
@@ -58,11 +62,11 @@ public partial class MovementSystem : Node
         _jumpPathDelta = 0;
         _currentMovement = MovementType.IDLE;
         
-        _landingLine = new LandingLine(_player.GlobalPosition.Y, _player.PLAYER_HEIGHT, _player.PLAYER_FEET_WIDTH);
+/*        _landingLine = new LandingLine(_player.GlobalPosition.Y, _player.PLAYER_HEIGHT, _player.PLAYER_FEET_WIDTH);
         _landingLine.UpdateLandingAxis(_player.GlobalPosition.Y);
         this.AddChild( _landingLine );
 
-        _landingLine.AreaEntered += OnJumpLand;
+        _landingLine.AreaEntered += OnJumpLand;*/
         _graph = new Graph();
     }
 
@@ -86,7 +90,7 @@ public partial class MovementSystem : Node
                     GD.Print("JUMP");
                 }
                 // move towards jump target
-                _FollowJumpCurve(delta);
+                _FollowJumpCurve();
                 _previousMovement = MovementType.JUMP;
                 break;
             case MovementType.RUN:
@@ -121,20 +125,25 @@ public partial class MovementSystem : Node
         // only jump if we aren't already
         if (_currentMovement != MovementType.JUMP)
         {
-            _jumpStartPosition = new Vector2(_player.GlobalPosition.X, _player.GlobalPosition.Y);
+            _jumpStartPosition = new Vector2(_player.GlobalPosition.X, _player.GlobalPosition.Y); //global position
+            _jumpEndPosition = new Vector2(_jumpStartPosition.X + _jumpCurveWidth, _jumpStartPosition.Y );//global position
+            _jumpCurveControl0 = new Vector2(-10, _jumpCurveHeight); //relative_position;
+            _jumpCurveControl1 = new Vector2(_jumpCurveWidth + 10, _jumpCurveHeight); //relative position;
+
             _jumpPathDelta = 0;
-            _landingLine.UpdateLandingAxis(_player.GlobalPosition.Y);
+           // _landingLine.UpdateLandingAxis(_player.GlobalPosition.Y);
             _currentMovement = MovementType.JUMP;
         }
     }
 
     public void OnJumpLand(Area2D area)
     {
-        if (_currentMovement == MovementType.JUMP && _jumpPathDelta > 50)
+        if (_currentMovement == MovementType.JUMP & _jumpPathDelta > 50)
         {
             _currentMovement = MovementType.IDLE;
-            _player.GlobalPosition = new Vector2(_player.GlobalPosition.X, _landingLine.GetSurfaceOfLandingLine());
-            //_landingLine.UpdateLandingAxis(DisplayServer.WindowGetSize().Y);
+            _player.GlobalPosition = new Vector2(_jumpEndPosition.X, _jumpEndPosition.Y);
+            /*_player.GlobalPosition = new Vector2(_player.GlobalPosition.X, _landingLine.GetSurfaceOfLandingLine());
+            _landingLine.UpdateLandingAxis(DisplayServer.WindowGetSize().Y);*/
         }
     }
 
@@ -166,7 +175,7 @@ public partial class MovementSystem : Node
         _currentMovement = MovementType.IDLE;
     }
 
-    private void _FollowJumpCurve(double delta)
+    private void _FollowJumpCurve()
     {
         /*
          * Assuming the origin of the graph is the node's jump start position,
@@ -174,28 +183,32 @@ public partial class MovementSystem : Node
          * add relative target vector ontop of starting vector to get target position
          * move player to target position
          */
+        float increment = 0.01f;
+        _jumpPathDelta +=  Mathf.Clamp(increment, 0, 1); //fraction of how far along jump curve we are so far
 
-        _jumpPathDelta += delta * _jumpSpeed; //fraction of how far along jump curve we are so far
-        Vector2 pointOnJumpCurve = _GetPointOnJumpCurve((float)_jumpPathDelta);
-        Vector2 targetPosition = _jumpStartPosition + pointOnJumpCurve;
+        Vector2 point_on_jump_curve = _GetPointOnJumpCurve(_jumpCurveControl0, _jumpCurveControl1, (float)_jumpPathDelta);
+        Vector2 targetPosition = point_on_jump_curve; // + pointOnJumpCurve;
 
-        _player.Position = targetPosition;
+         _player.Position = targetPosition;
+        if(_player.Position.Y >= _jumpEndPosition.Y)
+        {
+            this.OnJumpLand(null);
+        }
 
     }
 
-    private Vector2 _GetPointOnJumpCurve(float relative_delta) //x value where origin is jump start position
+    private Vector2 _GetPointOnJumpCurve(Vector2 control_point_0, Vector2 control_point_1, float t)
     {
-        /** For more complex curves: 
-         * //https://docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html
-         */
-        float jump_curve_offset = (1 / _jumpCurveWidth);
-        float delta = relative_delta - jump_curve_offset; // should start at the first x-intercept;
+        t = Mathf.Clamp(t, 0, 1);
+        Vector2 q0 = _jumpStartPosition.Lerp(control_point_0, t);
+        Vector2 q1 = control_point_0.Lerp(control_point_1, t);
+        Vector2 q2 = control_point_1.Lerp(_jumpEndPosition, t);
 
-        Vector2 pointOnJumpCurve = Vector2.Zero;
-        pointOnJumpCurve.Y = (_jumpCurveWidth * delta * delta) + (_jumpCurveHeight * delta) - jump_curve_offset;
-        pointOnJumpCurve.X = relative_delta;
+        Vector2 r0 = q0.Lerp(q1, t);
+        Vector2 r1 = q1.Lerp(q2, t);
 
-        return pointOnJumpCurve;
+        Vector2 s = r0.Lerp(r1, t);
+        return s;
     }
 
     private partial class LandingLine : Area2D
@@ -242,7 +255,7 @@ public partial class MovementSystem : Node
 
         public override void _Process(double delta)
         {
-           // this.GlobalPosition.MoveToward(new Vector2(0, _y_axis), (float)delta);
+           this.GlobalPosition.MoveToward(new Vector2(0, _y_axis), (float)delta);
         }
 
         public float GetSurfaceOfLandingLine()
@@ -260,16 +273,14 @@ public partial class MovementSystem : Node
     {
         int number_points = (int)(1 / _jumpCurveWidth) * 100;
         // generate array of points
-        Vector2[] pointsOnJumpCurve = new Vector2[number_points];
+        Vector2[] pointsOnJumpCurve = new Vector2[100];
         float point_spacing = 0.1f;
         for (int i = 0; i < pointsOnJumpCurve.Length; i++)
         {
-            Vector2 vector = _GetPointOnJumpCurve(i * point_spacing);
+            Vector2 vector = _GetPointOnJumpCurve(_jumpCurveControl0, _jumpCurveControl1, i * point_spacing);
             pointsOnJumpCurve[i] = new Vector2(vector.X, vector.Y);
         }
 
-        _graph.GlobalPosition = _player.GlobalPosition;
-        _graph.TopLevel = true;
         _graph.PopulateCurve2D(pointsOnJumpCurve);
     }
 

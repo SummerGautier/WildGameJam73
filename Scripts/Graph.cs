@@ -10,6 +10,8 @@ public partial class Graph : Node2D
 
     public override void _Ready()
     {
+        this.TopLevel = true;
+        this.GlobalPosition = new Vector2(0, 0);
     }
 
     public override void _Draw()
@@ -27,7 +29,7 @@ public partial class Graph : Node2D
 
     public override void _Process(double delta)
     {
-        this.QueueRedraw();
+       this.QueueRedraw();
     }
 
 
@@ -36,7 +38,11 @@ public partial class Graph : Node2D
     {
         Vector2[] points = (Vector2[])data.Clone();
         _curve = new Curve2D();
-
+        for (int i = 0; i < points.Length; i++)
+        {
+            _curve.AddPoint(points[i]);
+        }
+/*
         float distance = 0;
 
         // calculate first point
@@ -52,7 +58,7 @@ public partial class Graph : Node2D
 
         //calculate last point
         Vector2 directionEndPoint = points[points.Length - 1].DirectionTo(points[points.Length - 2]);
-        _curve.AddPoint(points[0], -directionEndPoint * distance, directionEndPoint * distance);
+        _curve.AddPoint(points[0], -directionEndPoint * distance, directionEndPoint * distance);*/
     }
 
 }

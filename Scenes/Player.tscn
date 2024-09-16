@@ -43,7 +43,8 @@ script = ExtResource("4_fiyo3")
 visible = false
 texture = ExtResource("5_t20jp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerBodyCollider" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_8gj2n")
 
 [connection signal="UserJumpInput" from="PlayerInput" to="PlayerMovement" method="_OnJumpInput"]

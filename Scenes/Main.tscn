@@ -11,4 +11,7 @@ position = Vector2(0, 800)
 [node name="Player" parent="." instance=ExtResource("1_bheve")]
 position = Vector2(163, 652)
 
+[node name="PlayerMovement" parent="Player" index="1"]
+_jumpCurveWidth = 200.0
+
 [editable path="Player"]
