@@ -5,7 +5,7 @@ public partial class MovementSystem : Node
 {
     // read-only variables
     [Export]
-    private Node2D _traveler;
+    private Area2D _traveler;
 
     [Export]
     private float _runSpeed = 0f;
@@ -63,6 +63,10 @@ public partial class MovementSystem : Node
         switch (_currentMovement)
         {
             case MovementType.IDLE:
+                if(_previousMovement != MovementType.IDLE)
+                {
+                    GD.Print("IDLE");
+                }
                 _previousMovement = MovementType.IDLE;
                 break;
             case MovementType.JUMP:
@@ -70,16 +74,17 @@ public partial class MovementSystem : Node
                 if(_previousMovement != MovementType.JUMP)
                 {
                     _DrawJumpPath();
-                    // reset jump position
-                   // _jumpStartPosition = new Vector2(_traveler.GlobalPosition.X, _traveler.GlobalPosition.Y);
-                    // reset jump vector
-                    _jumpPathDelta = 0.0f;
+                    GD.Print("JUMP");
                 }
                 // move towards jump target
                 _FollowJumpCurve(delta);
                 _previousMovement = MovementType.JUMP;
                 break;
             case MovementType.RUN:
+                if(_previousMovement != MovementType.RUN)
+                {
+                    GD.Print("RUN");
+                }
                 // move towards target followRunTarget(delta)
                 _previousMovement = MovementType.RUN;
                 break;
@@ -135,13 +140,19 @@ public partial class MovementSystem : Node
         return pointOnJumpCurve;
     }
 
+    public void OnJumpLand(Area2D area)
+    {
+        GD.Print("Jump landing registered");
+        _currentMovement = MovementType.IDLE;
+    }
+
     private void _OnJumpInput()
     {
         // Only jump if we aren't already
         if (_currentMovement != MovementType.JUMP)
         {
             _currentMovement = MovementType.JUMP;
-           _jumpStartPosition = _traveler.Position;
+            _jumpStartPosition = _traveler.Position;
             _jumpPathDelta = 0;
         }
         GD.Print("Jump Input Recieved by Movement System;");
@@ -149,14 +160,12 @@ public partial class MovementSystem : Node
 
     private void _OnRunInput(MovementSystem.CardinalDirection cardinalDirection)
     {
-        //if state is jump
-        //set nextState to Run
+        GD.Print("Run Input Received by Movement System");
 
-        //else
-        //set state to Run if not already
-        //update velocity based on input
-        GD.Print("Run Input Received by Movement System" + cardinalDirection);
-
+        if (_currentMovement != MovementType.RUN)
+        {
+            _currentMovement = MovementType.RUN;
+        }
     }
 
 }

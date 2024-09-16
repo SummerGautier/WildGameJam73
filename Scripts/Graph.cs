@@ -16,7 +16,6 @@ public partial class Graph : Node2D
     {
         if (_curve.GetBakedPoints().Length > 0)
         {
-            GD.Print("curve is available");
             _DrawCurve();  
         }
     }

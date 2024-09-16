@@ -1,66 +1,36 @@
-[gd_scene load_steps=13 format=3 uid="uid://bv0337o757a7r"]
+[gd_scene load_steps=9 format=3 uid="uid://bv0337o757a7r"]
 
-[ext_resource type="Texture2D" uid="uid://q7oss4oi5mu0" path="res://Art/Player_Idle_Loop_v1-0.png" id="1_1x3jw"]
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q8if5"]
+[ext_resource type="Texture2D" uid="uid://bt7al6a5023eu" path="res://Art/PlayerPlaceHolder.png" id="2_assku"]
 [ext_resource type="Script" path="res://Scripts/MovementSystem.cs" id="3_nc01i"]
 [ext_resource type="Script" path="res://Scripts/Graph.cs" id="4_fiyo3"]
 [ext_resource type="Script" path="res://Scripts/InputTranslator.cs" id="4_iverj"]
 [ext_resource type="Texture2D" uid="uid://cfovjm5rcak2u" path="res://icon.svg" id="5_t20jp"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7jux4"]
-atlas = ExtResource("1_1x3jw")
-region = Rect2(0, 0, 128, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0r7lg"]
-atlas = ExtResource("1_1x3jw")
-region = Rect2(128, 0, 128, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nxbs7"]
-atlas = ExtResource("1_1x3jw")
-region = Rect2(256, 0, 128, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o27ug"]
-atlas = ExtResource("1_1x3jw")
-region = Rect2(384, 0, 128, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xr6bi"]
-atlas = ExtResource("1_1x3jw")
-region = Rect2(512, 0, 128, 200)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_kmrag"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7jux4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0r7lg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nxbs7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o27ug")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xr6bi")
+"texture": ExtResource("2_assku")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8gj2n"]
+radius = 117.0
+height = 396.0
+
+[node name="Player" type="Area2D"]
 script = ExtResource("1_q8if5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kmrag")
-frame_progress = 0.485942
 
 [node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("_traveler", "_graph")]
 script = ExtResource("3_nc01i")
 _traveler = NodePath("..")
-_jumpCurveWidth = 0.005
 _graph = NodePath("../MovementGraph")
 
 [node name="PlayerInput" type="Node" parent="."]
@@ -73,5 +43,9 @@ script = ExtResource("4_fiyo3")
 visible = false
 texture = ExtResource("5_t20jp")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_8gj2n")
+
+[connection signal="area_entered" from="." to="PlayerMovement" method="OnJumpLand"]
 [connection signal="UserJumpInput" from="PlayerInput" to="PlayerMovement" method="_OnJumpInput"]
 [connection signal="UserRunInput" from="PlayerInput" to="PlayerMovement" method="_OnRunInput"]

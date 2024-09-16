@@ -26,22 +26,22 @@ public partial class InputTranslator : Node
 
         if (Input.IsActionPressed("run_right"))
         {
-            cardinal = cardinal & MovementSystem.CardinalDirection.Right;
+            cardinal = cardinal | MovementSystem.CardinalDirection.Right;
         }
 
         if (Input.IsActionPressed("run_left"))
         {
-            cardinal = cardinal & MovementSystem.CardinalDirection.Left;
+            cardinal = cardinal | MovementSystem.CardinalDirection.Left;
         }
 
         if (Input.IsActionPressed("run_towards"))
         {
-            cardinal = cardinal & MovementSystem.CardinalDirection.Towards;
+            cardinal = cardinal | MovementSystem.CardinalDirection.Towards;
         }
 
         if (Input.IsActionPressed("run_away"))
         {
-            cardinal = cardinal & MovementSystem.CardinalDirection.Away;
+            cardinal = cardinal | MovementSystem.CardinalDirection.Away;
         }
 
         if (cardinal > MovementSystem.CardinalDirection.None)
