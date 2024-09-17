@@ -6,13 +6,33 @@ public partial class MovementSystem : Node
     // read-only variables
     [Export]
     private Player _player;
-
     [Export]
     private float _runSpeed = 500f;
-    [Export]
-    private float _jumpSpeedPercentage = 1f;
 
     [ExportGroup("Jump Properties")]
+
+    private float _inputMarginOfError;
+    [Export(PropertyHint.Range, "0,100,5")]
+    public float AllowedInputErrorPercentage
+    {
+        get { return _inputMarginOfError; }
+        set
+        {
+            _inputMarginOfError = Mathf.Clamp(value / 100, 0, 1);
+        }
+    }
+
+    
+    [Export(PropertyHint.Range, "1,5,0.1")]
+    public float JumpSpeedMultiplier
+    {
+        get { return _jumpSpeed; }
+        set
+        {
+            _jumpSpeed = Mathf.Clamp(value / 100, 0, 1);
+        }
+    }
+
     [Export]
     float _jumpCurveWidth = 100f;
     [Export]
@@ -25,12 +45,10 @@ public partial class MovementSystem : Node
     // internal use-only
     private Vector2 _jumpStartPosition;
     private Vector2 _jumpEndPosition;
-
+    private float _jumpSpeed;
     private double _jumpPathDelta;
     private Vector2 _jumpCurveControl0;
     private Vector2 _jumpCurveControl1;
-    //private LandingLine _landingLine;
-
     private Cardinal _direction;
 
     // class state management
@@ -61,12 +79,6 @@ public partial class MovementSystem : Node
         _jumpStartPosition = Vector2.Zero;
         _jumpPathDelta = 0;
         _currentMovement = MovementType.IDLE;
-        
-/*        _landingLine = new LandingLine(_player.GlobalPosition.Y, _player.PLAYER_HEIGHT, _player.PLAYER_FEET_WIDTH);
-        _landingLine.UpdateLandingAxis(_player.GlobalPosition.Y);
-        this.AddChild( _landingLine );
-
-        _landingLine.AreaEntered += OnJumpLand;*/
         _graph = new Graph();
     }
 
@@ -100,6 +112,7 @@ public partial class MovementSystem : Node
                 }
                 _FollowRunTarget(delta);
                 _previousMovement = MovementType.RUN;
+                _currentMovement = MovementType.IDLE;
                 break;
 
         }
@@ -111,12 +124,15 @@ public partial class MovementSystem : Node
 
     private void _OnRunInput(MovementSystem.Cardinal  target_direction)
     {
-        GD.Print("Run Input Registered");
         //only run if we're not jumping;
         if(_currentMovement != MovementType.JUMP)
         {
             _direction = target_direction;
             _currentMovement = MovementType.RUN;
+        }else
+        {
+            _nextMovement = MovementType.RUN;
+            _direction = target_direction;
         }
     }
 
@@ -125,28 +141,32 @@ public partial class MovementSystem : Node
         // only jump if we aren't already
         if (_currentMovement != MovementType.JUMP)
         {
-            _jumpStartPosition = new Vector2(_player.GlobalPosition.X, _player.GlobalPosition.Y); //global position
-            _jumpEndPosition = new Vector2(_jumpStartPosition.X + _jumpCurveWidth, _jumpStartPosition.Y );//global position
-            _jumpCurveControl0 = new Vector2(-10, _jumpCurveHeight); //relative_position;
-            _jumpCurveControl1 = new Vector2(_jumpCurveWidth + 10, _jumpCurveHeight); //relative position;
-
-            _jumpPathDelta = 0;
-           // _landingLine.UpdateLandingAxis(_player.GlobalPosition.Y);
+            _ResetJump();
             _currentMovement = MovementType.JUMP;
+        } else if(_jumpPathDelta > (1-_inputMarginOfError)) // if jump is 80% done, allow registration of next jump
+        {
+            _nextMovement = MovementType.JUMP;
+        }
+    }
+
+    private void _OnIdleInput()
+    {
+        if(_currentMovement != MovementType.JUMP)
+        {
+            _currentMovement = MovementType.IDLE;
         }
     }
 
     public void OnJumpLand(Area2D area)
     {
-        if (_currentMovement == MovementType.JUMP & _jumpPathDelta > 50)
+        if (_currentMovement == MovementType.JUMP)
         {
-            _currentMovement = MovementType.IDLE;
+            _currentMovement = _nextMovement;
+            _nextMovement = MovementType.IDLE;
             _player.GlobalPosition = new Vector2(_jumpEndPosition.X, _jumpEndPosition.Y);
-            /*_player.GlobalPosition = new Vector2(_player.GlobalPosition.X, _landingLine.GetSurfaceOfLandingLine());
-            _landingLine.UpdateLandingAxis(DisplayServer.WindowGetSize().Y);*/
+            _ResetJump();
         }
     }
-
 
     /*
      * HELPER METHODS & CLASSES
@@ -154,10 +174,6 @@ public partial class MovementSystem : Node
 
     private void _FollowRunTarget(double delta)
     {
-        if(_previousMovement != MovementType.RUN)
-        {
-            GD.Print("direction" + _direction.ToString());
-        }
         
         Vector2 velocity = Vector2.Zero;
         if (_direction.HasFlag(Cardinal.Right)) { velocity.X += 1; }
@@ -166,35 +182,29 @@ public partial class MovementSystem : Node
         if (_direction.HasFlag(Cardinal.Away)) { velocity.Y -= 1; }
 
         velocity = velocity.Normalized() * _runSpeed;
-
-        _player.Position += velocity * (float)delta;
-        _player.Position = new Vector2(
-            x: Mathf.Clamp(_player.Position.X, 0, 1920),
-            y: Mathf.Clamp(_player.Position.Y, 0, 1080)
-        );
-        _currentMovement = MovementType.IDLE;
+        _player.UpdatePosition(_player.Position + (velocity * (float)delta));
     }
 
     private void _FollowJumpCurve()
     {
-        /*
-         * Assuming the origin of the graph is the node's jump start position,
-         * calculate the relative target position along the parabola,
-         * add relative target vector ontop of starting vector to get target position
-         * move player to target position
-         */
-        float increment = 0.01f;
-        _jumpPathDelta +=  Mathf.Clamp(increment, 0, 1); //fraction of how far along jump curve we are so far
-
-        Vector2 point_on_jump_curve = _GetPointOnJumpCurve(_jumpCurveControl0, _jumpCurveControl1, (float)_jumpPathDelta);
-        Vector2 targetPosition = point_on_jump_curve; // + pointOnJumpCurve;
-
-         _player.Position = targetPosition;
+        _jumpPathDelta +=  Mathf.Clamp(_jumpSpeed, 0, 1); //fraction of how far along jump curve we are so far
+        Vector2 target_position = _GetPointOnJumpCurve(_jumpCurveControl0, _jumpCurveControl1, (float)_jumpPathDelta);
+        _player.UpdatePosition(target_position, clampToGround: false);
         if(_player.Position.Y >= _jumpEndPosition.Y)
         {
             this.OnJumpLand(null);
         }
 
+    }
+
+    private void _ResetJump()
+    {
+        _jumpStartPosition = new Vector2(_player.GlobalPosition.X, _player.GlobalPosition.Y); //global position
+        _jumpEndPosition = new Vector2(_jumpStartPosition.X + _jumpCurveWidth, _jumpStartPosition.Y);//global position
+
+        _jumpCurveControl0 = new Vector2(_jumpStartPosition.X - 10, _jumpStartPosition.Y - _jumpCurveHeight); //relative_position;
+        _jumpCurveControl1 = new Vector2(_jumpStartPosition.X + 10, _jumpStartPosition.Y - _jumpCurveHeight); //relative position;
+        _jumpPathDelta = 0;
     }
 
     private Vector2 _GetPointOnJumpCurve(Vector2 control_point_0, Vector2 control_point_1, float t)
@@ -210,61 +220,6 @@ public partial class MovementSystem : Node
         Vector2 s = r0.Lerp(r1, t);
         return s;
     }
-
-    private partial class LandingLine : Area2D
-    {
-        private CollisionShape2D _collisionShape;
-
-        private float _jumperHeight;
-        private float _height;
-        private float _width;
-        private float _y_axis;
-        
-
-        private Color _purple = new Color(0.62f, 0.12f, 0.94f, 0.3f);
-        public LandingLine(float start_y_axis, float jumper_height,  float foot_width)
-        {
-            _width = DisplayServer.WindowGetSize().X;
-            _height = foot_width;
-            _jumperHeight = jumper_height;
-
-            // collision bounding box
-            _collisionShape = new CollisionShape2D();
-            _collisionShape.DebugColor = _purple;
-
-            RectangleShape2D boundingBox = new RectangleShape2D();
-            boundingBox.Size = new Vector2(_width, _height); //landing line should expand the width of the screen;
-
-            _collisionShape.Position = new Vector2(_width/2, Vector2.Zero.Y); // shift the middle of the shape to the mid-point of the screen
-            _collisionShape.Shape = boundingBox;
-
-            //assign child objects
-            this.AddChild(_collisionShape);
-
-            //set position
-            this.UpdateLandingAxis(start_y_axis);
-        }
-
-        public void UpdateLandingAxis(float y_axis)
-        {
-            // offset y-axis by the jumper's height and the height of the landing line
-            this._y_axis = y_axis + (_jumperHeight / 2) + (_height / 2);
-            //Only move part of the way there, to allow player to escape, avoiding premature collision
-            this.GlobalPosition = new Vector2(Vector2.Zero.X, this._y_axis);
-        }
-
-        public override void _Process(double delta)
-        {
-           this.GlobalPosition.MoveToward(new Vector2(0, _y_axis), (float)delta);
-        }
-
-        public float GetSurfaceOfLandingLine()
-        {
-            //calculate the y_axis of the top of the landing line
-            return this.GlobalPosition.Y - (_jumperHeight/2) - (_height/2);
-        }
-    }
-
 
     /*
      * DEBUG HELPERS

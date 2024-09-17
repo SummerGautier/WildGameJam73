@@ -13,7 +13,9 @@ config_version=5
 config/name="WildingGameJam73"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 0)
+boot_splash/image="res://Art/CoderSnackGamesLogoWhite1920.png"
+config/icon="res://Art/CoderSnackGamesLogoWhite.png"
 
 [display]
 

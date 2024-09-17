@@ -1,17 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://duu7xtsitaxc4"]
+[gd_scene load_steps=4 format=3 uid="uid://duu7xtsitaxc4"]
 
 [ext_resource type="PackedScene" uid="uid://bv0337o757a7r" path="res://Scenes/Player.tscn" id="1_bheve"]
+[ext_resource type="Script" path="res://Scripts/AssemblyLine.cs" id="2_yoyb1"]
 [ext_resource type="PackedScene" uid="uid://fl7rdwxeuaqg" path="res://Scenes/assembly_line.tscn" id="3_0gc4l"]
 
 [node name="Main" type="Node"]
 
 [node name="AssemblyLine" parent="." instance=ExtResource("3_0gc4l")]
 position = Vector2(0, 800)
+script = ExtResource("2_yoyb1")
 
-[node name="Player" parent="." instance=ExtResource("1_bheve")]
-position = Vector2(163, 652)
+[node name="Player" parent="." node_paths=PackedStringArray("_assemblyLine") instance=ExtResource("1_bheve")]
+position = Vector2(150, 550)
+_assemblyLine = NodePath("../AssemblyLine")
 
 [node name="PlayerMovement" parent="Player" index="1"]
 _jumpCurveWidth = 200.0
+
+[connection signal="area_exited" from="AssemblyLine" to="Player" method="_OnFloorExit"]
 
 [editable path="Player"]
