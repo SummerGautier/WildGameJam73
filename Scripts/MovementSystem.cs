@@ -5,13 +5,9 @@ public partial class MovementSystem : Node
 {
     // read-only variables
     [Export]
-    private Player _player;
-    [Export]
     private float _runSpeed = 500f;
 
     [ExportGroup("Jump Properties")]
-
-    private float _inputMarginOfError;
     [Export(PropertyHint.Range, "0,100,5")]
     public float AllowedInputErrorPercentage
     {
@@ -21,8 +17,6 @@ public partial class MovementSystem : Node
             _inputMarginOfError = Mathf.Clamp(value / 100, 0, 1);
         }
     }
-
-    
     [Export(PropertyHint.Range, "1,5,0.1")]
     public float JumpSpeedMultiplier
     {
@@ -32,24 +26,38 @@ public partial class MovementSystem : Node
             _jumpSpeed = Mathf.Clamp(value / 100, 0, 1);
         }
     }
-
     [Export]
     float _jumpCurveWidth = 100f;
     [Export]
     float _jumpCurveHeight = 200f;
+    [Export]
+    Vector2 _controlPoint0Offset = new Vector2(-10, 0);
+    [Export]
+    Vector2 _controlPoint1Offset = new Vector2(10, 0);
 
     [ExportGroup("Debug Settings")]
     [Export]
     private Graph _graph;
 
+    [Signal]
+    public delegate void JumpPositionUpdateEventHandler(Vector2 position, Vector2 end, float delta);
+    [Signal]
+    public delegate void MovePositionUpdateEventHandler(Vector2 position, bool clampToScreen = true, bool clampToGround = true);
+
     // internal use-only
     private Vector2 _jumpStartPosition;
     private Vector2 _jumpEndPosition;
+
     private float _jumpSpeed;
     private double _jumpPathDelta;
+
     private Vector2 _jumpCurveControl0;
     private Vector2 _jumpCurveControl1;
+
+    private Vector2 _runStartPosition;
     private Cardinal _direction;
+    private float _inputMarginOfError;
+
 
     // class state management
     private MovementType _currentMovement;
@@ -122,26 +130,26 @@ public partial class MovementSystem : Node
      * SIGNAL ACTION METHODS
      */
 
-    private void _OnRunInput(MovementSystem.Cardinal  target_direction)
+    public void OnEntityRun(MovementSystem.Cardinal  target_direction, Vector2 startPosition)
     {
         //only run if we're not jumping;
-        if(_currentMovement != MovementType.JUMP)
-        {
-            _direction = target_direction;
+        if(_currentMovement != MovementType.JUMP) 
+        { 
             _currentMovement = MovementType.RUN;
-        }else
-        {
+        } else { 
             _nextMovement = MovementType.RUN;
-            _direction = target_direction;
         }
+
+        _runStartPosition = startPosition;
+        _direction = target_direction;
     }
 
-    private void _OnJumpInput()
+    public void OnEntityJump(Vector2 start_position)
     {
         // only jump if we aren't already
         if (_currentMovement != MovementType.JUMP)
         {
-            _ResetJump();
+            _ResetJump(start_position);
             _currentMovement = MovementType.JUMP;
         } else if(_jumpPathDelta > (1-_inputMarginOfError)) // if jump is 80% done, allow registration of next jump
         {
@@ -149,22 +157,21 @@ public partial class MovementSystem : Node
         }
     }
 
-    private void _OnIdleInput()
-    {
-        if(_currentMovement != MovementType.JUMP)
-        {
-            _currentMovement = MovementType.IDLE;
-        }
-    }
-
-    public void OnJumpLand(Area2D area)
+    public void OnEntityJumpLanded()
     {
         if (_currentMovement == MovementType.JUMP)
         {
             _currentMovement = _nextMovement;
             _nextMovement = MovementType.IDLE;
-            _player.GlobalPosition = new Vector2(_jumpEndPosition.X, _jumpEndPosition.Y);
-            _ResetJump();
+            _ResetJump(_jumpEndPosition);
+        }
+    }
+
+    private void _OnEntityIdle()
+    {
+        if(_currentMovement != MovementType.JUMP)
+        {
+            _currentMovement = MovementType.IDLE;
         }
     }
 
@@ -182,28 +189,35 @@ public partial class MovementSystem : Node
         if (_direction.HasFlag(Cardinal.Away)) { velocity.Y -= 1; }
 
         velocity = velocity.Normalized() * _runSpeed;
-        _player.UpdatePosition(_player.Position + (velocity * (float)delta));
+        Vector2 target_position = _runStartPosition + (velocity * (float)delta);
+        EmitSignal(SignalName.MovePositionUpdate, target_position, true, true);
     }
 
     private void _FollowJumpCurve()
     {
         _jumpPathDelta +=  Mathf.Clamp(_jumpSpeed, 0, 1); //fraction of how far along jump curve we are so far
         Vector2 target_position = _GetPointOnJumpCurve(_jumpCurveControl0, _jumpCurveControl1, (float)_jumpPathDelta);
-        _player.UpdatePosition(target_position, clampToGround: false);
-        if(_player.Position.Y >= _jumpEndPosition.Y)
-        {
-            this.OnJumpLand(null);
-        }
+        EmitSignal(SignalName.JumpPositionUpdate, target_position, _jumpEndPosition, _jumpPathDelta);
 
     }
 
-    private void _ResetJump()
+    private void _ResetJump(Vector2 start_position)
     {
-        _jumpStartPosition = new Vector2(_player.GlobalPosition.X, _player.GlobalPosition.Y); //global position
+        // start and end position of jump
+        _jumpStartPosition = start_position; //global position
         _jumpEndPosition = new Vector2(_jumpStartPosition.X + _jumpCurveWidth, _jumpStartPosition.Y);//global position
 
-        _jumpCurveControl0 = new Vector2(_jumpStartPosition.X - 10, _jumpStartPosition.Y - _jumpCurveHeight); //relative_position;
-        _jumpCurveControl1 = new Vector2(_jumpStartPosition.X + 10, _jumpStartPosition.Y - _jumpCurveHeight); //relative position;
+        // left control point on bezier curve
+        _jumpCurveControl0 = new Vector2(
+            x: _jumpStartPosition.X + _controlPoint0Offset.X, 
+            y:_jumpStartPosition.Y - _jumpCurveHeight + _controlPoint0Offset.Y
+        );
+        // right control point on bezier curve
+        _jumpCurveControl1 = new Vector2(
+            x: _jumpStartPosition.X + _controlPoint1Offset.X,
+            y: _jumpStartPosition.Y - _jumpCurveHeight + _controlPoint1Offset.Y);
+
+        // reset jump path progres to 0%
         _jumpPathDelta = 0;
     }
 

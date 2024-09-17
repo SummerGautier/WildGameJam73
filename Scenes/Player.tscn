@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bv0337o757a7r"]
+[gd_scene load_steps=8 format=3 uid="uid://bv0337o757a7r"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q8if5"]
 [ext_resource type="Texture2D" uid="uid://bt7al6a5023eu" path="res://Art/PlayerPlaceHolder.png" id="2_assku"]
 [ext_resource type="Script" path="res://Scripts/MovementSystem.cs" id="3_nc01i"]
-[ext_resource type="Script" path="res://Scripts/Graph.cs" id="4_fiyo3"]
 [ext_resource type="Script" path="res://Scripts/InputTranslator.cs" id="4_iverj"]
-[ext_resource type="Texture2D" uid="uid://cfovjm5rcak2u" path="res://icon.svg" id="5_t20jp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kmrag"]
 animations = [{
@@ -31,24 +29,6 @@ script = ExtResource("1_q8if5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kmrag")
 
-[node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("_player", "_graph")]
-script = ExtResource("3_nc01i")
-_player = NodePath("..")
-AllowedInputErrorPercentage = 20.0
-JumpSpeedMultiplier = 2.0
-_graph = NodePath("../MovementGraph")
-
-[node name="PlayerInput" type="Node" parent="."]
-script = ExtResource("4_iverj")
-
-[node name="MovementGraph" type="Node2D" parent="."]
-visible = false
-script = ExtResource("4_fiyo3")
-
-[node name="Sprite2D" type="Sprite2D" parent="MovementGraph"]
-visible = false
-texture = ExtResource("5_t20jp")
-
 [node name="PlayerBodyCollider" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CapsuleShape2D_8gj2n")
@@ -58,5 +38,12 @@ position = Vector2(-31, 162.25)
 shape = SubResource("RectangleShape2D_8n22a")
 debug_color = Color(0.993111, 0, 0.242414, 0.42)
 
-[connection signal="UserJumpInput" from="PlayerInput" to="PlayerMovement" method="_OnJumpInput"]
-[connection signal="UserRunInput" from="PlayerInput" to="PlayerMovement" method="_OnRunInput"]
+[node name="PlayerMovement" type="Node" parent="."]
+script = ExtResource("3_nc01i")
+AllowedInputErrorPercentage = 20.0
+JumpSpeedMultiplier = 1.5
+_jumpCurveWidth = 200.0
+_jumpCurveHeight = 300.0
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("4_iverj")

@@ -42,23 +42,6 @@ public partial class Graph : Node2D
         {
             _curve.AddPoint(points[i]);
         }
-/*
-        float distance = 0;
-
-        // calculate first point
-        Vector2 directionBeginPoint = points[0].DirectionTo(points[1]);
-        _curve.AddPoint(points[0], -directionBeginPoint * distance, directionBeginPoint * distance);
-
-        // calculate middle points
-        for (int i = 1; i < points.Length - 1; i++)
-        {
-            Vector2 directionToPoint = points[i - 1].DirectionTo(points[i + 1]);
-            _curve.AddPoint(points[i], -directionToPoint * distance, directionToPoint * distance);
-        }
-
-        //calculate last point
-        Vector2 directionEndPoint = points[points.Length - 1].DirectionTo(points[points.Length - 2]);
-        _curve.AddPoint(points[0], -directionEndPoint * distance, directionEndPoint * distance);*/
     }
 
 }

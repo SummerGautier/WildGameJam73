@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://duu7xtsitaxc4"]
+[gd_scene load_steps=5 format=3 uid="uid://duu7xtsitaxc4"]
 
 [ext_resource type="PackedScene" uid="uid://bv0337o757a7r" path="res://Scenes/Player.tscn" id="1_bheve"]
 [ext_resource type="Script" path="res://Scripts/AssemblyLine.cs" id="2_yoyb1"]
 [ext_resource type="PackedScene" uid="uid://fl7rdwxeuaqg" path="res://Scenes/assembly_line.tscn" id="3_0gc4l"]
+[ext_resource type="Script" path="res://Scripts/Graph.cs" id="4_aq1k0"]
 
 [node name="Main" type="Node"]
 
@@ -14,9 +15,11 @@ script = ExtResource("2_yoyb1")
 position = Vector2(150, 550)
 _assemblyLine = NodePath("../AssemblyLine")
 
-[node name="PlayerMovement" parent="Player" index="1"]
-_jumpCurveWidth = 200.0
+[node name="PlayerMovement" parent="Player" index="3" node_paths=PackedStringArray("_graph")]
+_controlPoint1Offset = Vector2(150, 0)
+_graph = NodePath("../JumpGraph")
 
-[connection signal="area_exited" from="AssemblyLine" to="Player" method="_OnFloorExit"]
+[node name="JumpGraph" type="Node2D" parent="Player"]
+script = ExtResource("4_aq1k0")
 
 [editable path="Player"]

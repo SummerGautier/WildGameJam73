@@ -48,6 +48,7 @@ public partial class InputTranslator : Node
         {
             EmitSignal(SignalName.UserRunInput, (int)cardinal);
         }
+
     }
 
 }
