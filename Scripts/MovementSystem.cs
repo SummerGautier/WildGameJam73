@@ -98,7 +98,7 @@ public partial class MovementSystem : Node
         switch (_currentMovement)
         {
             case MovementType.IDLE:
-                if(_previousMovement != MovementType.IDLE)
+                if (_previousMovement != MovementType.IDLE)
                 {
                     EmitSignal(SignalName.Idle);
                 }
@@ -106,7 +106,7 @@ public partial class MovementSystem : Node
                 break;
             case MovementType.JUMP:
                 // check if jump just started
-                if(_previousMovement != MovementType.JUMP)
+                if (_previousMovement != MovementType.JUMP)
                 {
                     _DrawJumpPath();
                     GD.Print("JUMP");
@@ -116,7 +116,7 @@ public partial class MovementSystem : Node
                 _previousMovement = MovementType.JUMP;
                 break;
             case MovementType.RUN:
-                if(_previousMovement != MovementType.RUN)
+                if (_previousMovement != MovementType.RUN)
                 {
                     GD.Print("RUN");
                 }
@@ -132,14 +132,15 @@ public partial class MovementSystem : Node
      * SIGNAL ACTION METHODS
      */
 
-    public void OnEntityRun(MovementSystem.Cardinal  target_direction, Vector2 startPosition)
+    public void OnEntityRun(MovementSystem.Cardinal target_direction, Vector2 startPosition)
     {
         //only run if we're not jumping;
-        if(_currentMovement != MovementType.JUMP) 
-        { 
+        if (_currentMovement != MovementType.JUMP)
+        {
             _currentMovement = MovementType.RUN;
-        } else if (_jumpPathDelta > (1 - _inputMarginOfError))
-        { 
+        }
+        else if (_jumpPathDelta > (1 - _inputMarginOfError))
+        {
             _nextMovement = MovementType.RUN;
         }
 
@@ -154,7 +155,8 @@ public partial class MovementSystem : Node
         {
             _ResetJump(start_position);
             _currentMovement = MovementType.JUMP;
-        } else if(_jumpPathDelta > (1-_inputMarginOfError)) // if jump is 80% done, allow registration of next jump
+        }
+        else if (_jumpPathDelta > (1 - _inputMarginOfError)) // if jump is 80% done, allow registration of next jump
         {
             _nextMovement = MovementType.JUMP;
         }
@@ -167,13 +169,13 @@ public partial class MovementSystem : Node
             _ResetJump(_jumpEndPosition);
             _currentMovement = _nextMovement;
             _nextMovement = MovementType.IDLE;
-            
+
         }
     }
 
     private void _OnEntityIdle()
     {
-        if(_currentMovement != MovementType.JUMP)
+        if (_currentMovement != MovementType.JUMP)
         {
             _currentMovement = MovementType.IDLE;
         }
@@ -185,7 +187,7 @@ public partial class MovementSystem : Node
 
     private void _FollowRunTarget(double delta)
     {
-        
+
         Vector2 velocity = Vector2.Zero;
         if (_direction.HasFlag(Cardinal.Right)) { velocity.X += 1; }
         if (_direction.HasFlag(Cardinal.Left)) { velocity.X -= 1; }
@@ -199,7 +201,7 @@ public partial class MovementSystem : Node
 
     private void _FollowJumpCurve()
     {
-        _jumpPathDelta +=  Mathf.Clamp(_jumpSpeed, 0, 1); //fraction of how far along jump curve we are so far
+        _jumpPathDelta += Mathf.Clamp(_jumpSpeed, 0, 1); //fraction of how far along jump curve we are so far
         Vector2 target_position = _GetPointOnJumpCurve(_jumpCurveControl0, _jumpCurveControl1, (float)_jumpPathDelta);
         EmitSignal(SignalName.JumpPositionUpdate, target_position, _jumpEndPosition, _jumpPathDelta);
 
@@ -215,8 +217,8 @@ public partial class MovementSystem : Node
 
         // left control point on bezier curve
         _jumpCurveControl0 = new Vector2(
-            x: _jumpStartPosition.X - _controlPoint0Offset.X * offset, 
-            y:_jumpStartPosition.Y - _jumpCurveHeight + _controlPoint0Offset.Y
+            x: _jumpStartPosition.X - _controlPoint0Offset.X * offset,
+            y: _jumpStartPosition.Y - _jumpCurveHeight + _controlPoint0Offset.Y
         );
         // right control point on bezier curve
         _jumpCurveControl1 = new Vector2(

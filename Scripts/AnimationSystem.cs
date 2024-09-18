@@ -34,7 +34,7 @@ public partial class AnimationSystem : Node2D
 
     public void PlayJump(float t, MovementSystem.Cardinal direction)
     {
-        if(_state != AnimationType.JUMP)
+        if (_state != AnimationType.JUMP)
         {
             _animations.FlipH = direction.HasFlag(MovementSystem.Cardinal.Left);
         }

@@ -18,7 +18,7 @@ public partial class Graph : Node2D
     {
         if (_curve.GetBakedPoints().Length > 0)
         {
-            _DrawCurve();  
+            _DrawCurve();
         }
     }
 
@@ -29,7 +29,7 @@ public partial class Graph : Node2D
 
     public override void _Process(double delta)
     {
-       this.QueueRedraw();
+        this.QueueRedraw();
     }
 
 
