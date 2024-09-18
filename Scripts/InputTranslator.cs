@@ -6,10 +6,10 @@ public partial class InputTranslator : Node
 {
     [Signal]
     public delegate void UserJumpInputEventHandler();
-
     [Signal]
     public delegate void UserRunInputEventHandler(MovementSystem.Cardinal direction);
-    // Called when the node enters the scene tree for the first time.
+    [Signal]
+    public delegate void UserIdleInputEventHandler();
     public override void _Ready()
     {
     }
@@ -20,6 +20,7 @@ public partial class InputTranslator : Node
         if (Input.IsActionJustPressed("jump"))
         {
             EmitSignal(SignalName.UserJumpInput);
+            return;
         }
 
         MovementSystem.Cardinal cardinal = MovementSystem.Cardinal.None;
@@ -47,7 +48,10 @@ public partial class InputTranslator : Node
         if (cardinal > MovementSystem.Cardinal.None)
         {
             EmitSignal(SignalName.UserRunInput, (int)cardinal);
+            return;
         }
+
+        EmitSignal(SignalName.UserIdleInput);
 
     }
 

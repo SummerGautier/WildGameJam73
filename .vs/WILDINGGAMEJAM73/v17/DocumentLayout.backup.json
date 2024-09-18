@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\animationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\animationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\inputtranslator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\inputtranslator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\movementsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\movementsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,19 +19,19 @@
       "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\inputtranslator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\inputtranslator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\assemblyline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\assemblyline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\summe\\AppData\\Local\\Temp\\.vsdbgsrc\\d84a7613a02b82325d0ecba9a28fa8dbc71277ce69a0d6d7ff1f801b1355af40\\GodotObject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\assemblyline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\assemblyline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|c:\\users\\summe\\dropbox\\games\\wildinggamejam73\\scripts\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E02D585-8920-4E91-B650-4FA2CD9AF0D9}|WildingGameJam73.csproj|solutionrelative:scripts\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,23 +41,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AnimationSystem.cs",
+              "DocumentMoniker": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\AnimationSystem.cs",
+              "RelativeDocumentMoniker": "Scripts\\AnimationSystem.cs",
+              "ToolTip": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\AnimationSystem.cs",
+              "RelativeToolTip": "Scripts\\AnimationSystem.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwEAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-18T01:56:14.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\Main.cs",
+              "RelativeDocumentMoniker": "Scripts\\Main.cs",
+              "ToolTip": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\Main.cs",
+              "RelativeToolTip": "Scripts\\Main.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-18T01:44:07.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "AssemblyLine.cs",
               "DocumentMoniker": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\AssemblyLine.cs",
               "RelativeDocumentMoniker": "Scripts\\AssemblyLine.cs",
               "ToolTip": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\AssemblyLine.cs",
               "RelativeToolTip": "Scripts\\AssemblyLine.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-17T00:53:48.452Z"
+              "WhenOpened": "2024-09-17T00:53:48.452Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "GodotObject.cs",
               "DocumentMoniker": "C:\\Users\\summe\\AppData\\Local\\Temp\\.vsdbgsrc\\d84a7613a02b82325d0ecba9a28fa8dbc71277ce69a0d6d7ff1f801b1355af40\\GodotObject.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\d84a7613a02b82325d0ecba9a28fa8dbc71277ce69a0d6d7ff1f801b1355af40\\GodotObject.cs",
@@ -57,12 +92,11 @@
               "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\d84a7613a02b82325d0ecba9a28fa8dbc71277ce69a0d6d7ff1f801b1355af40\\GodotObject.cs",
               "ViewState": "AgIAAOUBAAAAAAAAAAAlwBgCAAACAAAAAQAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T05:03:10.543Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-15T05:03:10.543Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Graph.cs",
               "DocumentMoniker": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\Graph.cs",
               "RelativeDocumentMoniker": "Scripts\\Graph.cs",
@@ -70,44 +104,43 @@
               "RelativeToolTip": "Scripts\\Graph.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-14T21:56:33.234Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-14T21:56:33.234Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "MovementSystem.cs",
               "DocumentMoniker": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\MovementSystem.cs",
               "RelativeDocumentMoniker": "Scripts\\MovementSystem.cs",
               "ToolTip": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\MovementSystem.cs",
               "RelativeToolTip": "Scripts\\MovementSystem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAANAAAAAAAAAAAAAmwMIAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-14T15:55:05.964Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\Player.cs",
               "RelativeDocumentMoniker": "Scripts\\Player.cs",
               "ToolTip": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\Player.cs",
               "RelativeToolTip": "Scripts\\Player.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAcwHcAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T14:12:36.816Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "InputTranslator.cs",
               "DocumentMoniker": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\InputTranslator.cs",
               "RelativeDocumentMoniker": "Scripts\\InputTranslator.cs",
               "ToolTip": "C:\\Users\\summe\\Dropbox\\Games\\wildinggamejam73\\Scripts\\InputTranslator.cs",
               "RelativeToolTip": "Scripts\\InputTranslator.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwDUAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-14T15:45:03.718Z",
               "EditorCaption": ""

@@ -42,7 +42,9 @@ public partial class MovementSystem : Node
     [Signal]
     public delegate void JumpPositionUpdateEventHandler(Vector2 position, Vector2 end, float delta);
     [Signal]
-    public delegate void MovePositionUpdateEventHandler(Vector2 position, bool clampToScreen = true, bool clampToGround = true);
+    public delegate void MovePositionUpdateEventHandler(Vector2 position);
+    [Signal]
+    public delegate void IdleEventHandler();
 
     // internal use-only
     private Vector2 _jumpStartPosition;
@@ -98,7 +100,7 @@ public partial class MovementSystem : Node
             case MovementType.IDLE:
                 if(_previousMovement != MovementType.IDLE)
                 {
-                    GD.Print("IDLE");
+                    EmitSignal(SignalName.Idle);
                 }
                 _previousMovement = MovementType.IDLE;
                 break;
@@ -192,7 +194,7 @@ public partial class MovementSystem : Node
 
         velocity = velocity.Normalized() * _runSpeed;
         Vector2 target_position = _runStartPosition + (velocity * (float)delta);
-        EmitSignal(SignalName.MovePositionUpdate, target_position, true, true);
+        EmitSignal(SignalName.MovePositionUpdate, target_position);
     }
 
     private void _FollowJumpCurve()
