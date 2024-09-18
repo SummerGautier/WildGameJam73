@@ -27,13 +27,13 @@ public partial class MovementSystem : Node
         }
     }
     [Export]
-    float _jumpCurveWidth = 100f;
+    private float _jumpCurveWidth = 100f;
     [Export]
-    float _jumpCurveHeight = 200f;
+    private float _jumpCurveHeight = 200f;
     [Export]
-    Vector2 _controlPoint0Offset = new Vector2(-10, 0);
+    private Vector2 _controlPoint0Offset = new Vector2(-10, 0);
     [Export]
-    Vector2 _controlPoint1Offset = new Vector2(10, 0);
+    private Vector2 _controlPoint1Offset = new Vector2(10, 0);
 
     [ExportGroup("Debug Settings")]
     [Export]
@@ -136,7 +136,8 @@ public partial class MovementSystem : Node
         if(_currentMovement != MovementType.JUMP) 
         { 
             _currentMovement = MovementType.RUN;
-        } else { 
+        } else if (_jumpPathDelta > (1 - _inputMarginOfError))
+        { 
             _nextMovement = MovementType.RUN;
         }
 
@@ -161,9 +162,10 @@ public partial class MovementSystem : Node
     {
         if (_currentMovement == MovementType.JUMP)
         {
+            _ResetJump(_jumpEndPosition);
             _currentMovement = _nextMovement;
             _nextMovement = MovementType.IDLE;
-            _ResetJump(_jumpEndPosition);
+            
         }
     }
 
@@ -185,8 +187,8 @@ public partial class MovementSystem : Node
         Vector2 velocity = Vector2.Zero;
         if (_direction.HasFlag(Cardinal.Right)) { velocity.X += 1; }
         if (_direction.HasFlag(Cardinal.Left)) { velocity.X -= 1; }
-        if (_direction.HasFlag(Cardinal.Towards)) { velocity.Y += 1; }
-        if (_direction.HasFlag(Cardinal.Away)) { velocity.Y -= 1; }
+        if (_direction.HasFlag(Cardinal.Towards)) { velocity.Y += 0.5f; }
+        if (_direction.HasFlag(Cardinal.Away)) { velocity.Y -= 0.5f; }
 
         velocity = velocity.Normalized() * _runSpeed;
         Vector2 target_position = _runStartPosition + (velocity * (float)delta);
@@ -233,6 +235,11 @@ public partial class MovementSystem : Node
 
         Vector2 s = r0.Lerp(r1, t);
         return s;
+    }
+
+    public Cardinal GetDirection()
+    {
+        return _direction;
     }
 
     /*

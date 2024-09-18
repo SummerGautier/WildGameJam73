@@ -1,25 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://duu7xtsitaxc4"]
+[gd_scene load_steps=8 format=3 uid="uid://duu7xtsitaxc4"]
 
 [ext_resource type="PackedScene" uid="uid://bv0337o757a7r" path="res://Scenes/Player.tscn" id="1_bheve"]
+[ext_resource type="Script" path="res://Scripts/Main.cs" id="1_l06iy"]
 [ext_resource type="Script" path="res://Scripts/AssemblyLine.cs" id="2_yoyb1"]
-[ext_resource type="PackedScene" uid="uid://fl7rdwxeuaqg" path="res://Scenes/assembly_line.tscn" id="3_0gc4l"]
+[ext_resource type="PackedScene" uid="uid://fl7rdwxeuaqg" path="res://Scenes/AssemblyLine.tscn" id="3_0gc4l"]
 [ext_resource type="Script" path="res://Scripts/Graph.cs" id="4_aq1k0"]
+[ext_resource type="PackedScene" uid="uid://ckhc1716tmddh" path="res://Scenes/Brick.tscn" id="5_qo8ub"]
 
-[node name="Main" type="Node"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_brmn5"]
+resource_local_to_scene = true
+radius = 100.0
+height = 366.0
+
+[node name="Main" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_l06iy")
 
 [node name="AssemblyLine" parent="." instance=ExtResource("3_0gc4l")]
+z_index = -1
 position = Vector2(0, 800)
 script = ExtResource("2_yoyb1")
 
+[node name="Brick" parent="." instance=ExtResource("5_qo8ub")]
+position = Vector2(1331, 711)
+
+[node name="Brick2" parent="." instance=ExtResource("5_qo8ub")]
+position = Vector2(1518, 842)
+
 [node name="Player" parent="." node_paths=PackedStringArray("_assemblyLine") instance=ExtResource("1_bheve")]
-position = Vector2(150, 550)
+position = Vector2(186, 778)
 _assemblyLine = NodePath("../AssemblyLine")
 
-[node name="PlayerMovement" parent="Player" index="3" node_paths=PackedStringArray("_graph")]
-_controlPoint1Offset = Vector2(150, 0)
-_graph = NodePath("../JumpGraph")
+[node name="PlayerBodyCollider" parent="Player" index="0"]
+shape = SubResource("CapsuleShape2D_brmn5")
 
-[node name="JumpGraph" type="Node2D" parent="Player"]
+[node name="PlayerMovement" parent="Player" index="3" node_paths=PackedStringArray("_graph")]
+_graph = NodePath("../../Graph")
+
+[node name="Graph" type="Node2D" parent="."]
+visible = false
 script = ExtResource("4_aq1k0")
 
 [editable path="Player"]

@@ -5,6 +5,11 @@
 [ext_resource type="Script" path="res://Scripts/MovementSystem.cs" id="3_nc01i"]
 [ext_resource type="Script" path="res://Scripts/InputTranslator.cs" id="4_iverj"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8gj2n"]
+resource_local_to_scene = true
+radius = 100.0
+height = 366.0
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_kmrag"]
 animations = [{
 "frames": [{
@@ -16,34 +21,33 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8gj2n"]
-radius = 100.0
-height = 384.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8n22a"]
 size = Vector2(100, 30)
 
 [node name="Player" type="Area2D"]
 script = ExtResource("1_q8if5")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_kmrag")
-
 [node name="PlayerBodyCollider" type="CollisionShape2D" parent="."]
-visible = false
+position = Vector2(30, -161)
+rotation = 0.111701
 shape = SubResource("CapsuleShape2D_8gj2n")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(32, -148)
+sprite_frames = SubResource("SpriteFrames_kmrag")
+
 [node name="PlayerFeetCollider" type="CollisionShape2D" parent="."]
-position = Vector2(-31, 162.25)
+position = Vector2(1, 14.25)
 shape = SubResource("RectangleShape2D_8n22a")
 debug_color = Color(0.993111, 0, 0.242414, 0.42)
 
 [node name="PlayerMovement" type="Node" parent="."]
 script = ExtResource("3_nc01i")
 AllowedInputErrorPercentage = 20.0
-JumpSpeedMultiplier = 1.5
-_jumpCurveWidth = 200.0
+JumpSpeedMultiplier = 1.8
+_jumpCurveWidth = 300.0
 _jumpCurveHeight = 300.0
+_controlPoint1Offset = Vector2(100, 0)
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("4_iverj")

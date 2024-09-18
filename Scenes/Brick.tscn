@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckhc1716tmddh"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x7obg"]
+load_path = "res://.godot/imported/Brick.png-37c6980d5a7b5524c75fd35a5c993871.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bti4g"]
+size = Vector2(85, 30)
+
+[node name="Brick" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CompressedTexture2D_x7obg")
+
+[node name="BrickCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-35, 27)
+rotation = 0.518363
+shape = SubResource("RectangleShape2D_bti4g")

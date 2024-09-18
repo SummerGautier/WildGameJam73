@@ -17,6 +17,8 @@ public partial class Player : Area2D
 	[Export]
 	public float PLAYER_FEET_HEIGHT = 30f;
 	[Export]
+	public float PLAYER_FEET_WIDTH = 100f;
+	[Export]
 	public float PLAYER_WIDTH = 256;
 	[Export]
 	public float PLAYER_HEIGHT = 384;
@@ -50,15 +52,15 @@ public partial class Player : Area2D
 
 
 	// Screen Boundary Positions Adjusted To Player Size
-    public float GetMinimumPlayerX() {  return PLAYER_WIDTH / 2; }
-    public float GetMinimumPlayerY() { return PLAYER_HEIGHT / 2; }
-    public float GetMaximumPlayerX() { return DisplayServer.WindowGetSize().X - (PLAYER_WIDTH / 2); }
-    public float GetMaximumPlayerY() { return DisplayServer.WindowGetSize().Y - (PLAYER_HEIGHT / 2); }
+    public float GetMinimumPlayerX() { return PLAYER_FEET_WIDTH/2; }
+    public float GetMinimumPlayerY() { return PLAYER_FEET_HEIGHT / 2; }
+    public float GetMaximumPlayerX() { return DisplayServer.WindowGetSize().X - (PLAYER_FEET_WIDTH / 2); }
+    public float GetMaximumPlayerY() { return DisplayServer.WindowGetSize().Y - (PLAYER_FEET_HEIGHT / 2); }
 
     public float GetMinimumGroundX() { return _runBounds.Position.X; }
-    public float GetMinimumGroundY() { return _runBounds.Position.Y - (PLAYER_HEIGHT / 2) - PLAYER_FEET_HEIGHT*2; } //feet poke up halfway
-    public float GetMaximumGroundX() { return _runBounds.End.X; }
-    public float GetMaximumGroundY() { return _runBounds.End.Y - (PLAYER_HEIGHT * (float)0.75) + PLAYER_FEET_HEIGHT; }
+    public float GetMinimumGroundY() { return _runBounds.Position.Y; }
+    public float GetMaximumGroundX() { return _runBounds.End.X - (PLAYER_FEET_WIDTH / 2); }
+    public float GetMaximumGroundY() { return _runBounds.End.Y - (PLAYER_FEET_HEIGHT / 2); }
 
     public void UpdatePosition(Vector2 position, bool clampToScreen = true, bool clampToGround = true)
 	{
@@ -73,20 +75,23 @@ public partial class Player : Area2D
         }
 		if (clampToGround)
 		{
-            //clamp to the run area
-            Rect2 run_bounds = _assemblyLine.GetBoundary();
-            Position = new Vector2(
-                x: Mathf.Clamp(Position.X, GetMinimumGroundX(), GetMaximumGroundX()),
-                y: Mathf.Clamp(Position.Y, GetMinimumGroundY(), GetMaximumGroundY())
-            );
-        }
+			//clamp to the run area
+			Rect2 run_bounds = _assemblyLine.GetBoundary();
+			Position = new Vector2(
+				x: Mathf.Clamp(Position.X, GetMinimumGroundX(), GetMaximumGroundX()),
+				y: Mathf.Clamp(Position.Y, GetMinimumGroundY(), GetMaximumGroundY())
+			);
+		}
+
+		//TODO: Update animation with _movementSystem.GetDirection() to determine which one to do
 	}
 
 	public void UpdateJumpPosition(Vector2 position, Vector2 end, float jump_path_delta)
 	{
 		//update position
 		UpdatePosition(position, clampToGround: false);
-        //send signal to animation system
+
+        //TODO: send signal to animation system with jump_path_delta
 
         if (Position.Y >= end.Y) //player has landed
         {

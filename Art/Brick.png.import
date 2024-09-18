@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cd7slwugne1sc"
-path="res://.godot/imported/Player_Idle_Loop.png-3a24bc18547553fe8061f6e20fc39064.ctex"
+uid="uid://bgxg8ecoaoaoe"
+path="res://.godot/imported/Brick.png-37c6980d5a7b5524c75fd35a5c993871.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Player_Idle_Loop.png"
-dest_files=["res://.godot/imported/Player_Idle_Loop.png-3a24bc18547553fe8061f6e20fc39064.ctex"]
+source_file="res://Art/Brick.png"
+dest_files=["res://.godot/imported/Brick.png-37c6980d5a7b5524c75fd35a5c993871.ctex"]
 
 [params]
 
