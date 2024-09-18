@@ -76,40 +76,9 @@ public partial class Player : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) { }
 
-
-	// Screen Boundary Positions Adjusted To Player Size
-    public float GetMinimumPlayerX() { return PLAYER_FEET_WIDTH/2; }
-    public float GetMinimumPlayerY() { return PLAYER_FEET_HEIGHT / 2; }
-    public float GetMaximumPlayerX() { return DisplayServer.WindowGetSize().X - (PLAYER_FEET_WIDTH / 2); }
-    public float GetMaximumPlayerY() { return DisplayServer.WindowGetSize().Y - (PLAYER_FEET_HEIGHT / 2); }
-
-    public float GetMinimumGroundX() { return _runBounds.Position.X; }
-    public float GetMinimumGroundY() { return _runBounds.Position.Y; }
-    public float GetMaximumGroundX() { return _runBounds.End.X - (PLAYER_FEET_WIDTH / 2); }
-    public float GetMaximumGroundY() { return _runBounds.End.Y - (PLAYER_FEET_HEIGHT / 2); }
-
-    public void SetPosition(Vector2 position, bool clampToScreen = true, bool clampToGround = true)
-	{
-        Position = position;
-		if (clampToScreen)
-		{
-            //clamp to the screen
-            Position = new Vector2(
-                x: Mathf.Clamp(Position.X, GetMinimumPlayerX(), GetMaximumPlayerX()),
-                y: Mathf.Clamp(Position.Y, GetMinimumPlayerY(), GetMaximumPlayerY())
-            );
-        }
-		if (clampToGround)
-		{
-			//clamp to the run area
-			Rect2 run_bounds = _assemblyLine.GetBoundary();
-			Position = new Vector2(
-				x: Mathf.Clamp(Position.X, GetMinimumGroundX(), GetMaximumGroundX()),
-				y: Mathf.Clamp(Position.Y, GetMinimumGroundY(), GetMaximumGroundY())
-			);
-		}
-	}
-
+	/**
+	 * Movement Signal Actions
+	 */
 	public void UpdateMovePosition(Vector2 position)
 	{
 		EmitSignal(SignalName.PlayerRunAnimation, (int)_movementSystem.GetDirection());
@@ -133,6 +102,10 @@ public partial class Player : Area2D
         EmitSignal(SignalName.PlayerIdleAnimation, (int)_movementSystem.GetDirection());
     }
 
+
+	/**
+	 * Input Signals Actions
+	 */
     private void _OnIdleInput()
     {
 		EmitSignal(SignalName.PlayerIdle);
@@ -147,5 +120,44 @@ public partial class Player : Area2D
     {
         EmitSignal(SignalName.PlayerJump, GlobalPosition);
     }
+
+
+	/**
+	 * Helpers
+	 */
+
+    // Screen Boundary Positions Adjusted To Player Size
+    public float GetMinimumPlayerX() { return PLAYER_FEET_WIDTH / 2; }
+    public float GetMinimumPlayerY() { return PLAYER_FEET_HEIGHT / 2; }
+    public float GetMaximumPlayerX() { return DisplayServer.WindowGetSize().X - (PLAYER_FEET_WIDTH / 2); }
+    public float GetMaximumPlayerY() { return DisplayServer.WindowGetSize().Y - (PLAYER_FEET_HEIGHT / 2); }
+
+    public float GetMinimumGroundX() { return _runBounds.Position.X; }
+    public float GetMinimumGroundY() { return _runBounds.Position.Y; }
+    public float GetMaximumGroundX() { return _runBounds.End.X - (PLAYER_FEET_WIDTH / 2); }
+    public float GetMaximumGroundY() { return _runBounds.End.Y - (PLAYER_FEET_HEIGHT / 2); }
+
+    public void SetPosition(Vector2 position, bool clampToScreen = true, bool clampToGround = true)
+    {
+        Position = position;
+        if (clampToScreen)
+        {
+            //clamp to the screen
+            Position = new Vector2(
+                x: Mathf.Clamp(Position.X, GetMinimumPlayerX(), GetMaximumPlayerX()),
+                y: Mathf.Clamp(Position.Y, GetMinimumPlayerY(), GetMaximumPlayerY())
+            );
+        }
+        if (clampToGround)
+        {
+            //clamp to the run area
+            Rect2 run_bounds = _assemblyLine.GetBoundary();
+            Position = new Vector2(
+                x: Mathf.Clamp(Position.X, GetMinimumGroundX(), GetMaximumGroundX()),
+                y: Mathf.Clamp(Position.Y, GetMinimumGroundY(), GetMaximumGroundY())
+            );
+        }
+    }
+
 
 }
