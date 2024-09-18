@@ -18,10 +18,6 @@ public partial class AnimationSystem : Node2D
         _state = AnimationType.IDLE;
     }
 
-    public override void _Process(double delta)
-    {
-    }
-
     public void PlayIdle(MovementSystem.Cardinal direction)
     {
         _state = AnimationType.IDLE;

@@ -73,18 +73,18 @@ public partial class Player : Area2D
 		_inputTranslator.UserIdleInput += this._OnIdleInput;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta) { }
-
-	/**
+    /**
 	 * Movement Signal Actions
 	 */
-	public void UpdateMovePosition(Vector2 position)
+    public void UpdateIdlePosition()
+    {
+        EmitSignal(SignalName.PlayerIdleAnimation, (int)_movementSystem.GetDirection());
+    }
+    public void UpdateMovePosition(Vector2 position)
 	{
 		EmitSignal(SignalName.PlayerRunAnimation, (int)_movementSystem.GetDirection());
 		SetPosition(position, clampToScreen: true, clampToGround:true);
 	}
-
 	public void UpdateJumpPosition(Vector2 position, Vector2 end, float jump_path_delta)
 	{
         EmitSignal(SignalName.PlayerJumpAnimation, jump_path_delta, (int)_movementSystem.GetDirection());
@@ -97,12 +97,6 @@ public partial class Player : Area2D
         }
     }
 
-	public void UpdateIdlePosition()
-	{
-        EmitSignal(SignalName.PlayerIdleAnimation, (int)_movementSystem.GetDirection());
-    }
-
-
 	/**
 	 * Input Signals Actions
 	 */
@@ -110,17 +104,14 @@ public partial class Player : Area2D
     {
 		EmitSignal(SignalName.PlayerIdle);
     }
-
     private void _OnRunInput(MovementSystem.Cardinal cardinal)
 	{
 		EmitSignal(SignalName.PlayerRun, (int)cardinal, Position);
 	}
-
     private void _OnJumpInput()
     {
         EmitSignal(SignalName.PlayerJump, GlobalPosition);
     }
-
 
 	/**
 	 * Helpers
