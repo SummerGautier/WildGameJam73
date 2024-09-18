@@ -108,8 +108,6 @@ public partial class Player : Area2D
 				y: Mathf.Clamp(Position.Y, GetMinimumGroundY(), GetMaximumGroundY())
 			);
 		}
-
-		//TODO: Update animation with _movementSystem.GetDirection() to determine which one to do
 	}
 
 	public void UpdateMovePosition(Vector2 position)

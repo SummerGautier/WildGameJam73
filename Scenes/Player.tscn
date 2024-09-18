@@ -116,7 +116,6 @@ AllowedInputErrorPercentage = 20.0
 JumpSpeedMultiplier = 1.8
 _jumpCurveWidth = 300.0
 _jumpCurveHeight = 300.0
-_controlPoint1Offset = Vector2(100, 0)
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("4_iverj")

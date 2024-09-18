@@ -5,7 +5,7 @@ public partial class AnimationSystem : Node2D
 {
     private AnimatedSprite2D _animations;
 
-    private AnimationType _currentAnimation;
+    private AnimationType _state;
     enum AnimationType
     {
         IDLE,
@@ -15,7 +15,7 @@ public partial class AnimationSystem : Node2D
     public override void _Ready()
     {
         _animations = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        _currentAnimation = AnimationType.IDLE;
+        _state = AnimationType.IDLE;
     }
 
     public override void _Process(double delta)
@@ -24,30 +24,26 @@ public partial class AnimationSystem : Node2D
 
     public void PlayIdle(MovementSystem.Cardinal direction)
     {
-        _currentAnimation = AnimationType.IDLE;
+        _state = AnimationType.IDLE;
         _animations.Play("Idle");
+        _animations.FlipH = direction.HasFlag(MovementSystem.Cardinal.Left);
     }
 
     public void PlayRun(MovementSystem.Cardinal direction)
     {
-        _currentAnimation = AnimationType.RUN;
+        _state = AnimationType.RUN;
         _animations.Play("Run");
+        _animations.FlipH = direction.HasFlag(MovementSystem.Cardinal.Left);
     }
 
     public void PlayJump(float t, MovementSystem.Cardinal direction)
     {
-        _currentAnimation = AnimationType.JUMP;
+        if(_state != AnimationType.JUMP)
+        {
+            _animations.FlipH = direction.HasFlag(MovementSystem.Cardinal.Left);
+        }
+        _state = AnimationType.JUMP;
         _animations.Play("Jump");
-        //_jump.Show();
-        //if (!_jump.IsPlaying())
-        //{
-        //    _jump.Play();
-        //}
-        //int frame_count = _jump.SpriteFrames.GetFrameCount("default");
-        //int frame = (int)Math.Ceiling( frame_count * t);/*
-        //Texture2D texture = _jump.SpriteFrames.GetFrameTexture("default",frame);
-        //_jump.SpriteFrames.SetFrame("default",frame, texture);*/
-        //_jump.Frame = frame;
     }
 
 }

@@ -31,9 +31,9 @@ public partial class MovementSystem : Node
     [Export]
     private float _jumpCurveHeight = 200f;
     [Export]
-    private Vector2 _controlPoint0Offset = new Vector2(-10, 0);
+    private Vector2 _controlPoint0Offset = new Vector2(100, 0);
     [Export]
-    private Vector2 _controlPoint1Offset = new Vector2(10, 0);
+    private Vector2 _controlPoint1Offset = new Vector2(100, 0);
 
     [ExportGroup("Debug Settings")]
     [Export]
@@ -207,18 +207,20 @@ public partial class MovementSystem : Node
 
     private void _ResetJump(Vector2 start_position)
     {
+        int offset = (_direction.HasFlag(Cardinal.Left) ? -1 : 1);
+
         // start and end position of jump
         _jumpStartPosition = start_position; //global position
-        _jumpEndPosition = new Vector2(_jumpStartPosition.X + _jumpCurveWidth, _jumpStartPosition.Y);//global position
+        _jumpEndPosition = new Vector2(_jumpStartPosition.X + _jumpCurveWidth * offset, _jumpStartPosition.Y);//global position
 
         // left control point on bezier curve
         _jumpCurveControl0 = new Vector2(
-            x: _jumpStartPosition.X + _controlPoint0Offset.X, 
+            x: _jumpStartPosition.X - _controlPoint0Offset.X * offset, 
             y:_jumpStartPosition.Y - _jumpCurveHeight + _controlPoint0Offset.Y
         );
         // right control point on bezier curve
         _jumpCurveControl1 = new Vector2(
-            x: _jumpStartPosition.X + _controlPoint1Offset.X,
+            x: _jumpStartPosition.X + _controlPoint1Offset.X * offset,
             y: _jumpStartPosition.Y - _jumpCurveHeight + _controlPoint1Offset.Y);
 
         // reset jump path progres to 0%

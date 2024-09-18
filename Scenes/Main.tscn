@@ -34,11 +34,11 @@ _assemblyLine = NodePath("../AssemblyLine")
 [node name="PlayerBodyCollider" parent="Player" index="0"]
 shape = SubResource("CapsuleShape2D_brmn5")
 
-[node name="PlayerMovement" parent="Player" index="3" node_paths=PackedStringArray("_graph")]
+[node name="PlayerMovement" parent="Player" index="2" node_paths=PackedStringArray("_graph")]
+_controlPoint0Offset = Vector2(10, -100)
 _graph = NodePath("../../Graph")
 
 [node name="Graph" type="Node2D" parent="."]
-visible = false
 script = ExtResource("4_aq1k0")
 
 [editable path="Player"]
