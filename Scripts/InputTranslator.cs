@@ -10,11 +10,7 @@ public partial class InputTranslator : Node
     public delegate void UserRunInputEventHandler(MovementSystem.Cardinal direction);
     [Signal]
     public delegate void UserIdleInputEventHandler();
-    public override void _Ready()
-    {
-    }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
         if (Input.IsActionJustPressed("jump"))
@@ -52,7 +48,5 @@ public partial class InputTranslator : Node
         }
 
         EmitSignal(SignalName.UserIdleInput);
-
     }
-
 }

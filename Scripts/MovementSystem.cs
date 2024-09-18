@@ -3,48 +3,56 @@ using System;
 
 public partial class MovementSystem : Node
 {
-    // read-only variables
-    [Export]
-    private float _runSpeed = 500f;
-
-    [ExportGroup("Jump Properties")]
-    [Export(PropertyHint.Range, "0,100,5")]
-    public float AllowedInputErrorPercentage
-    {
-        get { return _inputMarginOfError; }
-        set
-        {
-            _inputMarginOfError = Mathf.Clamp(value / 100, 0, 1);
-        }
-    }
-    [Export(PropertyHint.Range, "1,5,0.1")]
-    public float JumpSpeedMultiplier
-    {
-        get { return _jumpSpeed; }
-        set
-        {
-            _jumpSpeed = Mathf.Clamp(value / 100, 0, 1);
-        }
-    }
-    [Export]
-    private float _jumpCurveWidth = 100f;
-    [Export]
-    private float _jumpCurveHeight = 200f;
-    [Export]
-    private Vector2 _controlPoint0Offset = new Vector2(100, 0);
-    [Export]
-    private Vector2 _controlPoint1Offset = new Vector2(100, 0);
-
-    [ExportGroup("Debug Settings")]
-    [Export]
-    private Graph _graph;
-
     [Signal]
     public delegate void JumpPositionUpdateEventHandler(Vector2 position, Vector2 end, float delta);
     [Signal]
     public delegate void MovePositionUpdateEventHandler(Vector2 position);
     [Signal]
     public delegate void IdleEventHandler();
+
+    [ExportGroup("Run Properties")]
+    [Export]
+    private float _runSpeed = 500f;
+
+    [ExportGroup("Jump Properties")]
+    [Export]
+    private float _jumpCurveWidth = 100f;
+    [Export]
+    private float _jumpCurveHeight = 200f;
+    [Export]
+    private Vector2 _controlPoint0Offset = new Vector2(10f, -100f);
+    [Export]
+    private Vector2 _controlPoint1Offset = new Vector2(100f, 0);
+
+    [Export(PropertyHint.Range, "1,5,0.1")]
+    private float _jumpSpeedMultiplier
+    {
+        get
+        {
+            return _jumpSpeed;
+        }
+        set
+        {
+            _jumpSpeed = Mathf.Clamp(value / 100, 0, 1);
+        }
+    }
+
+    [Export(PropertyHint.Range, "0,100,5")]
+    public float _allowedInputErrorPercentage
+    {
+        get
+        {
+            return _inputMarginOfError;
+        }
+        set
+        {
+            _inputMarginOfError = Mathf.Clamp(value / 100, 0, 1);
+        }
+    }
+
+    [ExportGroup("Debug Settings")]
+    [Export]
+    private Graph _graph;
 
     // internal use-only
     private Vector2 _jumpStartPosition;
@@ -265,5 +273,4 @@ public partial class MovementSystem : Node
 
         _graph.PopulateCurve2D(pointsOnJumpCurve);
     }
-
 }

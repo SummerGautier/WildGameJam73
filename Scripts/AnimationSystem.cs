@@ -41,5 +41,4 @@ public partial class AnimationSystem : Node2D
         _state = AnimationType.JUMP;
         _animations.Play("Jump");
     }
-
 }

@@ -112,8 +112,6 @@ debug_color = Color(0.993111, 0, 0.242414, 0.42)
 
 [node name="PlayerMovement" type="Node" parent="."]
 script = ExtResource("3_nc01i")
-AllowedInputErrorPercentage = 20.0
-JumpSpeedMultiplier = 1.8
 _jumpCurveWidth = 300.0
 _jumpCurveHeight = 300.0
 

@@ -3,15 +3,15 @@ using System;
 
 public partial class Player : Area2D
 {
-    // Called when the node enters the scene tree for the first time.
+    // Collection of Component Systems
     private InputTranslator _inputTranslator;
     private MovementSystem _movementSystem;
     private AnimationSystem _animationSystem;
 
     [Signal]
-    public delegate void PlayerRunEventHandler(MovementSystem.Cardinal direction, Vector2 startPosition);
+    public delegate void PlayerRunEventHandler(MovementSystem.Cardinal direction, Vector2 start_position);
     [Signal]
-    public delegate void PlayerJumpEventHandler(Vector2 startPosition);
+    public delegate void PlayerJumpEventHandler(Vector2 start_position);
     [Signal]
     public delegate void PlayerJumpLandedEventHandler();
     [Signal]
@@ -25,13 +25,13 @@ public partial class Player : Area2D
     public delegate void PlayerIdleAnimationEventHandler(MovementSystem.Cardinal direction);
 
     [Export]
-    public float PLAYER_FEET_HEIGHT = 30f;
+    private float _playerFeetHeight = 30f;
     [Export]
-    public float PLAYER_FEET_WIDTH = 100f;
+    private float _playerFeetWidth = 100f;
     [Export]
-    public float PLAYER_WIDTH = 256;
+    private float _playerBodyHeight = 256;
     [Export]
-    public float PLAYER_HEIGHT = 384;
+    private float _playerBodyWidth = 384;
     [Export]
     private AssemblyLine _assemblyLine;
     private Rect2 _runBounds;
@@ -68,9 +68,9 @@ public partial class Player : Area2D
         _movementSystem.Idle += this.UpdateIdlePosition;
 
         // read input signals
-        _inputTranslator.UserRunInput += this._OnRunInput;
-        _inputTranslator.UserJumpInput += this._OnJumpInput;
-        _inputTranslator.UserIdleInput += this._OnIdleInput;
+        _inputTranslator.UserRunInput += this.OnRunInput;
+        _inputTranslator.UserJumpInput += this.OnJumpInput;
+        _inputTranslator.UserIdleInput += this.OnIdleInput;
     }
 
     /**
@@ -83,12 +83,12 @@ public partial class Player : Area2D
     public void UpdateMovePosition(Vector2 position)
     {
         EmitSignal(SignalName.PlayerRunAnimation, (int)_movementSystem.GetDirection());
-        SetPosition(position, clampToScreen: true, clampToGround: true);
+        _SetPosition(position, clamp_on_screen: true, clamp_on_ground: true);
     }
     public void UpdateJumpPosition(Vector2 position, Vector2 end, float jump_path_delta)
     {
         EmitSignal(SignalName.PlayerJumpAnimation, jump_path_delta, (int)_movementSystem.GetDirection());
-        SetPosition(position, clampToScreen: true, clampToGround: false);
+        _SetPosition(position, clamp_on_screen: true, clamp_on_ground: false);
 
         if (jump_path_delta > 1)
         {
@@ -100,15 +100,15 @@ public partial class Player : Area2D
     /**
 	 * Input Signals Actions
 	 */
-    private void _OnIdleInput()
+    public void OnIdleInput()
     {
         EmitSignal(SignalName.PlayerIdle);
     }
-    private void _OnRunInput(MovementSystem.Cardinal cardinal)
+    public void OnRunInput(MovementSystem.Cardinal cardinal)
     {
         EmitSignal(SignalName.PlayerRun, (int)cardinal, Position);
     }
-    private void _OnJumpInput()
+    public void OnJumpInput()
     {
         EmitSignal(SignalName.PlayerJump, GlobalPosition);
     }
@@ -118,37 +118,34 @@ public partial class Player : Area2D
 	 */
 
     // Screen Boundary Positions Adjusted To Player Size
-    public float GetMinimumPlayerX() { return PLAYER_FEET_WIDTH / 2; }
-    public float GetMinimumPlayerY() { return PLAYER_FEET_HEIGHT / 2; }
-    public float GetMaximumPlayerX() { return DisplayServer.WindowGetSize().X - (PLAYER_FEET_WIDTH / 2); }
-    public float GetMaximumPlayerY() { return DisplayServer.WindowGetSize().Y - (PLAYER_FEET_HEIGHT / 2); }
+    private float _GetMinimumPlayerX() { return _playerFeetWidth / 2; }
+    private float _GetMinimumPlayerY() { return _playerFeetHeight / 2; }
+    private float _GetMaximumPlayerX() { return DisplayServer.WindowGetSize().X - (_playerFeetWidth / 2); }
+    private float _GetMaximumPlayerY() { return DisplayServer.WindowGetSize().Y - (_playerFeetHeight / 2); }
+    private float _GetMinimumGroundX() { return _runBounds.Position.X; }
+    private float _GetMinimumGroundY() { return _runBounds.Position.Y; }
+    private float _GetMaximumGroundX() { return _runBounds.End.X - (_playerFeetWidth / 2); }
+    private float _GetMaximumGroundY() { return _runBounds.End.Y - (_playerFeetHeight / 2); }
 
-    public float GetMinimumGroundX() { return _runBounds.Position.X; }
-    public float GetMinimumGroundY() { return _runBounds.Position.Y; }
-    public float GetMaximumGroundX() { return _runBounds.End.X - (PLAYER_FEET_WIDTH / 2); }
-    public float GetMaximumGroundY() { return _runBounds.End.Y - (PLAYER_FEET_HEIGHT / 2); }
-
-    public void SetPosition(Vector2 position, bool clampToScreen = true, bool clampToGround = true)
+    private void _SetPosition(Vector2 position, bool clamp_on_screen = true, bool clamp_on_ground = true)
     {
         Position = position;
-        if (clampToScreen)
+        if (clamp_on_screen)
         {
             //clamp to the screen
             Position = new Vector2(
-                x: Mathf.Clamp(Position.X, GetMinimumPlayerX(), GetMaximumPlayerX()),
-                y: Mathf.Clamp(Position.Y, GetMinimumPlayerY(), GetMaximumPlayerY())
+                x: Mathf.Clamp(Position.X, _GetMinimumPlayerX(), _GetMaximumPlayerX()),
+                y: Mathf.Clamp(Position.Y, _GetMinimumPlayerY(), _GetMaximumPlayerY())
             );
         }
-        if (clampToGround)
+        if (clamp_on_ground)
         {
             //clamp to the run area
             Rect2 run_bounds = _assemblyLine.GetBoundary();
             Position = new Vector2(
-                x: Mathf.Clamp(Position.X, GetMinimumGroundX(), GetMaximumGroundX()),
-                y: Mathf.Clamp(Position.Y, GetMinimumGroundY(), GetMaximumGroundY())
+                x: Mathf.Clamp(Position.X, _GetMinimumGroundX(), _GetMaximumGroundX()),
+                y: Mathf.Clamp(Position.Y, _GetMinimumGroundY(), _GetMaximumGroundY())
             );
         }
     }
-
-
 }

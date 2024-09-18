@@ -32,8 +32,6 @@ public partial class Graph : Node2D
         this.QueueRedraw();
     }
 
-
-
     public void PopulateCurve2D(Vector2[] data)
     {
         Vector2[] points = (Vector2[])data.Clone();
@@ -43,5 +41,4 @@ public partial class Graph : Node2D
             _curve.AddPoint(points[i]);
         }
     }
-
 }

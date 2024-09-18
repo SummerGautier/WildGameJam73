@@ -27,6 +27,9 @@ position = Vector2(1331, 711)
 [node name="Brick2" parent="." instance=ExtResource("5_qo8ub")]
 position = Vector2(1518, 842)
 
+[node name="BrickMovement" parent="Brick2" index="2" node_paths=PackedStringArray("_graph")]
+_graph = NodePath("../../Graph")
+
 [node name="Player" parent="." node_paths=PackedStringArray("_assemblyLine") instance=ExtResource("1_bheve")]
 position = Vector2(186, 778)
 _assemblyLine = NodePath("../AssemblyLine")
@@ -35,10 +38,12 @@ _assemblyLine = NodePath("../AssemblyLine")
 shape = SubResource("CapsuleShape2D_brmn5")
 
 [node name="PlayerMovement" parent="Player" index="2" node_paths=PackedStringArray("_graph")]
-_controlPoint0Offset = Vector2(10, -100)
+_jumpSpeedMultiplier = 1.8
+_allowedInputErrorPercentage = 20.0
 _graph = NodePath("../../Graph")
 
 [node name="Graph" type="Node2D" parent="."]
 script = ExtResource("4_aq1k0")
 
+[editable path="Brick2"]
 [editable path="Player"]
