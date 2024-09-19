@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static MovementSystem;
 
 public partial class Player : Area2D
 {
@@ -7,6 +8,10 @@ public partial class Player : Area2D
     private InputTranslator _inputTranslator;
     private MovementSystem _movementSystem;
     private AnimationSystem _animationSystem;
+    private PlayerCollision _collisionSystem;
+    private PlayerFoot _foot;
+
+    private Rect2 _runBounds;
 
     [Signal]
     public delegate void PlayerRunEventHandler(MovementSystem.Cardinal direction, Vector2 start_position);
@@ -34,7 +39,8 @@ public partial class Player : Area2D
     private float _playerBodyWidth = 384;
     [Export]
     private AssemblyLine _assemblyLine;
-    private Rect2 _runBounds;
+
+    
     public override void _Ready()
     {
         /*
@@ -43,7 +49,10 @@ public partial class Player : Area2D
         _inputTranslator = GetNode<InputTranslator>("PlayerInput");
         _movementSystem = GetNode<MovementSystem>("PlayerMovement");
         _animationSystem = GetNode<AnimationSystem>("PlayerAnimation");
+        _collisionSystem = new PlayerCollision(this);
+        _foot = GetNode<PlayerFoot>("PlayerFootArea");
         _runBounds = _assemblyLine.GetBoundary();
+        
 
         /* 
          * Subscribe systems to player signals
@@ -52,7 +61,9 @@ public partial class Player : Area2D
         // send movement events
         this.PlayerRun += _movementSystem.OnEntityRun;
         this.PlayerJump += _movementSystem.OnEntityJump;
+        this.PlayerJump += _foot.OnPlayerJump;
         this.PlayerJumpLanded += _movementSystem.OnEntityJumpLanded;
+        this.PlayerJumpLanded += _foot.OnPlayerJumpLanded;
 
         // send animation events
         this.PlayerJumpAnimation += _animationSystem.PlayJump;
@@ -71,6 +82,10 @@ public partial class Player : Area2D
         _inputTranslator.UserRunInput += this.OnRunInput;
         _inputTranslator.UserJumpInput += this.OnJumpInput;
         _inputTranslator.UserIdleInput += this.OnIdleInput;
+
+        // read collision events
+        _foot.PlayerCollidedWithBrick += this.OnBrickCollision;
+        _foot.PlayerCollidedWithAssembler+= this.OnAssemblerCollision;
     }
 
     /**
@@ -87,6 +102,7 @@ public partial class Player : Area2D
     }
     public void UpdateJumpPosition(Vector2 position, Vector2 end, float jump_path_delta)
     {
+        
         EmitSignal(SignalName.PlayerJumpAnimation, jump_path_delta, (int)_movementSystem.GetDirection());
         _SetPosition(position, clamp_on_screen: true, clamp_on_ground: false);
 
@@ -104,7 +120,7 @@ public partial class Player : Area2D
     {
         EmitSignal(SignalName.PlayerIdle);
     }
-    public void OnRunInput(MovementSystem.Cardinal cardinal)
+    public void OnRunInput(Cardinal cardinal)
     {
         EmitSignal(SignalName.PlayerRun, (int)cardinal, Position);
     }
@@ -114,8 +130,29 @@ public partial class Player : Area2D
     }
 
     /**
+     * Collision Signals Actions
+     */
+    public void OnBrickCollision()
+    {
+        this.Hide();
+    }
+    public void OnAssemblerCollision()
+    {
+        _SetPosition(new Vector2(Position.X - 10f, Position.Y));
+    }
+
+    /**
 	 * Helpers
 	 */
+    public PlayerCollision GetCollisionSystem()
+    {
+        return _collisionSystem;
+    }
+
+    public PlayerFoot Foot()
+    {
+        return this._foot;
+    }
 
     // Screen Boundary Positions Adjusted To Player Size
     private float _GetMinimumPlayerX() { return _playerFeetWidth / 2; }
@@ -148,4 +185,40 @@ public partial class Player : Area2D
             );
         }
     }
+
+    public partial class PlayerCollision : Node
+    {
+        [Signal]
+        public delegate void BrickCollidedEventHandler();
+        private Player _player;
+
+        public PlayerCollision (Player player)
+        {
+            _player = player;
+        }
+    }
+
+    /**
+     * Brick Created:
+     * EmitSignal( BrickCreated(Brick))
+     * 
+     * Main.cs:
+     * OnBrickCreated:
+     *  brick.onAreaShapeEntered += Player.GetCollisionSystem().OnBrickShapeEntered
+     *  
+     * Player.OnBrickShapeEntered:
+     *  PlayerCollision.IsBrickCleared(....)
+     *  
+     * IsBrickCleared:
+     *   CollisionShape brickCollider = other_shape_node
+     *   CollisionShape playerCollider = local_shape_node
+     *   
+     *   if(other_shape_node.IsInGroup("BrickBodyCollider")):
+     *      float BrickBodySurface = other_shape_node.Position.Y - other_shape_node.rect2.size.y/2
+     *      float PlayerBottom = local_shape_node.Position.Y + local_shape_node.rec2.size.y/2
+     *      return PlayerBottom > BrickBodySurface
+     *   if(other_shape_node.IsInGroup("BrickFootCollider"):
+     *      return local_shape_node.IsInGroup("PlayerFeetCollider")
+     *
+     */   
 }

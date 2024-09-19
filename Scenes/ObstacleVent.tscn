@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://tbmevhdhqrhs"]
+
+[ext_resource type="Script" path="res://Scripts/ObstacleVent.cs" id="1_0br8a"]
+[ext_resource type="Texture2D" uid="uid://phs5xakvxifx" path="res://Art/ObstacleVent.png" id="1_7ej33"]
+
+[node name="ObstacleVent" type="Node2D"]
+script = ExtResource("1_0br8a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7ej33")
+
+[node name="ObstacleSpawnTimer" type="Timer" parent="."]
+wait_time = 2.435
+autostart = true

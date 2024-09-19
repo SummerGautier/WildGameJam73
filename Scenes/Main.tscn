@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/AssemblyLine.cs" id="2_yoyb1"]
 [ext_resource type="PackedScene" uid="uid://fl7rdwxeuaqg" path="res://Scenes/AssemblyLine.tscn" id="3_0gc4l"]
 [ext_resource type="Script" path="res://Scripts/Graph.cs" id="4_aq1k0"]
-[ext_resource type="PackedScene" uid="uid://ckhc1716tmddh" path="res://Scenes/Brick.tscn" id="5_qo8ub"]
+[ext_resource type="PackedScene" uid="uid://tbmevhdhqrhs" path="res://Scenes/ObstacleVent.tscn" id="6_cwe7w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_brmn5"]
 resource_local_to_scene = true
@@ -21,20 +21,14 @@ z_index = -1
 position = Vector2(0, 800)
 script = ExtResource("2_yoyb1")
 
-[node name="Brick" parent="." instance=ExtResource("5_qo8ub")]
-position = Vector2(1331, 711)
-
-[node name="Brick2" parent="." instance=ExtResource("5_qo8ub")]
-position = Vector2(1518, 842)
-
-[node name="BrickMovement" parent="Brick2" index="2" node_paths=PackedStringArray("_graph")]
-_graph = NodePath("../../Graph")
+[node name="ObstacleVent" parent="." instance=ExtResource("6_cwe7w")]
+position = Vector2(1682, 189)
 
 [node name="Player" parent="." node_paths=PackedStringArray("_assemblyLine") instance=ExtResource("1_bheve")]
-position = Vector2(186, 778)
+position = Vector2(350, 800)
 _assemblyLine = NodePath("../AssemblyLine")
 
-[node name="PlayerBodyCollider" parent="Player" index="0"]
+[node name="PlayerBodyCollider" parent="Player" index="1"]
 shape = SubResource("CapsuleShape2D_brmn5")
 
 [node name="PlayerMovement" parent="Player" index="2" node_paths=PackedStringArray("_graph")]
@@ -43,7 +37,7 @@ _allowedInputErrorPercentage = 20.0
 _graph = NodePath("../../Graph")
 
 [node name="Graph" type="Node2D" parent="."]
+visible = false
 script = ExtResource("4_aq1k0")
 
-[editable path="Brick2"]
 [editable path="Player"]

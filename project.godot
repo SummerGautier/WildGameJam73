@@ -27,6 +27,19 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="WildingGameJam73"
 
+[global_group]
+
+PlayerBodyCollider=""
+Brick="Brick Object Area2D"
+Player="Player Object Area2D"
+BrickBody=""
+BrickBodyCollider=""
+PlayerFoot=""
+PlayerFootCollider=""
+BrickFloor="Base collider of brick object."
+BrickFloorCollider=""
+AssemblyLine=""
+
 [input]
 
 jump={

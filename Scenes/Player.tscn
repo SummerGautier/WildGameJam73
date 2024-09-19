@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bv0337o757a7r"]
+[gd_scene load_steps=21 format=3 uid="uid://bv0337o757a7r"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q8if5"]
 [ext_resource type="Texture2D" uid="uid://bt7al6a5023eu" path="res://Art/PlayerPlaceHolder.png" id="2_assku"]
@@ -7,14 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/InputTranslator.cs" id="4_iverj"]
 [ext_resource type="Texture2D" uid="uid://dysyjpw78sak4" path="res://Art/PlayerJumpPlaceHolder.png" id="6_0fy6t"]
 [ext_resource type="Texture2D" uid="uid://dxqpcg67oheb7" path="res://Art/PlayerRunPlaceHolder.png" id="7_qxcno"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8gj2n"]
-resource_local_to_scene = true
-radius = 100.0
-height = 366.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8n22a"]
-size = Vector2(100, 30)
+[ext_resource type="Script" path="res://Scripts/PlayerFoot.cs" id="8_gef2k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_po11l"]
 atlas = ExtResource("2_assku")
@@ -97,18 +90,30 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="Area2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8gj2n"]
+resource_local_to_scene = true
+radius = 100.0
+height = 366.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8n22a"]
+size = Vector2(70, 21.75)
+
+[node name="Player" type="Area2D" groups=["Player"]]
 script = ExtResource("1_q8if5")
 
-[node name="PlayerBodyCollider" type="CollisionShape2D" parent="."]
+[node name="PlayerAnimation" type="Node2D" parent="."]
+position = Vector2(32, -148)
+script = ExtResource("4_a4nrs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerAnimation"]
+position = Vector2(-1, -8)
+sprite_frames = SubResource("SpriteFrames_kmrag")
+animation = &"Jump"
+
+[node name="PlayerBodyCollider" type="CollisionShape2D" parent="." groups=["PlayerBodyCollider"]]
 position = Vector2(30, -161)
 rotation = 0.111701
 shape = SubResource("CapsuleShape2D_8gj2n")
-
-[node name="PlayerFeetCollider" type="CollisionShape2D" parent="."]
-position = Vector2(1, 14.25)
-shape = SubResource("RectangleShape2D_8n22a")
-debug_color = Color(0.993111, 0, 0.242414, 0.42)
 
 [node name="PlayerMovement" type="Node" parent="."]
 script = ExtResource("3_nc01i")
@@ -118,10 +123,10 @@ _jumpCurveHeight = 300.0
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("4_iverj")
 
-[node name="PlayerAnimation" type="Node2D" parent="."]
-position = Vector2(32, -148)
-script = ExtResource("4_a4nrs")
+[node name="PlayerFootArea" type="Area2D" parent="." groups=["PlayerFoot"]]
+script = ExtResource("8_gef2k")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerAnimation"]
-sprite_frames = SubResource("SpriteFrames_kmrag")
-animation = &"Idle"
+[node name="PlayerFeetCollider" type="CollisionShape2D" parent="PlayerFootArea" groups=["PlayerFootCollider"]]
+position = Vector2(16, 10.125)
+shape = SubResource("RectangleShape2D_8n22a")
+debug_color = Color(0.993111, 0, 0.242414, 0.42)

@@ -4,24 +4,41 @@ using System;
 public partial class Main : Node2D
 {
     private Player _player;
+    private ObstacleVent _obstacleVent;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _player = GetNode<Player>("Player");
-        // when the player jumps, the change in y value should no longer affect draw order.
-        // but when the player lands and runs again, y value should re-affect draw order.
-        _player.PlayerJump += DisableSortOrder;
-        _player.PlayerJumpLanded += EnableSortOrder;
-
+        this._InitPlayer();
+        this._InitObstacleVent();
     }
 
-    public void DisableSortOrder(Vector2 unused)
+    /*
+     * Signal Action
+     */
+
+    /*
+     * Helpers & Math
+     */
+    private void _DisableSortOrder(Vector2 unused)
     {
         this.YSortEnabled = false;
     }
 
-    public void EnableSortOrder()
+    private void _EnableSortOrder()
     {
         this.YSortEnabled = true;
     }
+
+    private void _InitPlayer()
+    {
+        _player = GetNode<Player>("Player");
+        _player.PlayerJump += _DisableSortOrder;
+        _player.PlayerJumpLanded += _EnableSortOrder;
+    }
+
+    private void _InitObstacleVent()
+    {
+        _obstacleVent = GetNode<ObstacleVent>("ObstacleVent");
+    }
+
 }

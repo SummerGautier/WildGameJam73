@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0unv"]
 size = Vector2(1920, 170)
 
-[node name="AssemblyLine" type="Area2D"]
+[node name="AssemblyLine" type="Area2D" groups=["AssemblyLine"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(960, 0)
