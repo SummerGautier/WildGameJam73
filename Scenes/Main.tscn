@@ -1,51 +1,45 @@
-[gd_scene load_steps=11 format=3 uid="uid://duu7xtsitaxc4"]
+[gd_scene load_steps=10 format=3 uid="uid://duu7xtsitaxc4"]
 
 [ext_resource type="PackedScene" uid="uid://bv0337o757a7r" path="res://Scenes/Player.tscn" id="1_bheve"]
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_l06iy"]
 [ext_resource type="Texture2D" uid="uid://cyt2oqybj7fym" path="res://Art/FarLamp.png" id="2_ln15e"]
-[ext_resource type="Script" path="res://Scripts/AssemblyLine.cs" id="2_yoyb1"]
 [ext_resource type="PackedScene" uid="uid://fl7rdwxeuaqg" path="res://Scenes/AssemblyLine.tscn" id="3_0gc4l"]
 [ext_resource type="Script" path="res://Scripts/Graph.cs" id="4_aq1k0"]
 [ext_resource type="PackedScene" uid="uid://tbmevhdhqrhs" path="res://Scenes/ObstacleVent.tscn" id="6_cwe7w"]
 [ext_resource type="Texture2D" uid="uid://t7372xcsgqal" path="res://Art/Background-02.png" id="7_m7yon"]
 [ext_resource type="Texture2D" uid="uid://b08w2bvjx6y1s" path="res://Art/FrontLamp.png" id="9_0vs1a"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_brmn5"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kqmcy"]
 resource_local_to_scene = true
-radius = 100.0
-height = 366.0
+radius = 55.0
+height = 188.816
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_l06iy")
+
+[node name="Player" parent="." node_paths=PackedStringArray("_assemblyLine") instance=ExtResource("1_bheve")]
+position = Vector2(471, 829)
+_assemblyLine = NodePath("../AssemblyLine")
+
+[node name="PlayerBodyCollider" parent="Player" index="1"]
+shape = SubResource("CapsuleShape2D_kqmcy")
+
+[node name="PlayerMovement" parent="Player" index="2" node_paths=PackedStringArray("_graph")]
+_graph = NodePath("../../Graph")
+
+[node name="PlayerFootArea" parent="Player" index="4"]
+_collisionLineWidth = 20.0
 
 [node name="BackLamp" type="Sprite2D" parent="."]
 z_index = -5
 position = Vector2(1121, 382)
 texture = ExtResource("2_ln15e")
 
-[node name="AssemblyLine" parent="." instance=ExtResource("3_0gc4l")]
-z_index = -1
-position = Vector2(0, 800)
-script = ExtResource("2_yoyb1")
-
 [node name="ObstacleVent" parent="." instance=ExtResource("6_cwe7w")]
 position = Vector2(1682, 189)
 
-[node name="Player" parent="." node_paths=PackedStringArray("_assemblyLine") instance=ExtResource("1_bheve")]
-position = Vector2(350, 800)
-_assemblyLine = NodePath("../AssemblyLine")
-
-[node name="PlayerBodyCollider" parent="Player" index="1"]
-shape = SubResource("CapsuleShape2D_brmn5")
-
-[node name="PlayerMovement" parent="Player" index="2" node_paths=PackedStringArray("_graph")]
-_jumpSpeedMultiplier = 1.8
-_allowedInputErrorPercentage = 20.0
-_graph = NodePath("../../Graph")
-
 [node name="Graph" type="Node2D" parent="."]
-visible = false
 script = ExtResource("4_aq1k0")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -57,5 +51,9 @@ texture = ExtResource("7_m7yon")
 z_index = 5
 position = Vector2(637, 543)
 texture = ExtResource("9_0vs1a")
+
+[node name="AssemblyLine" parent="." instance=ExtResource("3_0gc4l")]
+z_index = -1
+position = Vector2(1, 827)
 
 [editable path="Player"]

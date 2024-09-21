@@ -33,11 +33,9 @@ scale = Vector2(11.9733, 8.25267)
 [node name="BrickFloorCollider" type="CollisionShape2D" parent="BrickFloorArea" groups=["BrickFloorCollider"]]
 position = Vector2(-50.7396, 5.93612)
 rotation = 2.70177
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_bti4g")
 
 [node name="BrickBodyCollider" type="CollisionShape2D" parent="." groups=["BrickBodyCollider"]]
 position = Vector2(-6, 4.76837e-07)
 rotation = -0.436332
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_65m8s")
