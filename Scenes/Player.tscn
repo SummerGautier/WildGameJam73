@@ -111,6 +111,7 @@ sprite_frames = SubResource("SpriteFrames_kmrag")
 animation = &"Jump"
 
 [node name="PlayerBodyCollider" type="CollisionShape2D" parent="." groups=["PlayerBodyCollider"]]
+visible = false
 position = Vector2(30, -161)
 rotation = 0.111701
 shape = SubResource("CapsuleShape2D_8gj2n")
@@ -124,6 +125,7 @@ _jumpCurveHeight = 300.0
 script = ExtResource("4_iverj")
 
 [node name="PlayerFootArea" type="Area2D" parent="." groups=["PlayerFoot"]]
+visible = false
 script = ExtResource("8_gef2k")
 
 [node name="PlayerFeetCollider" type="CollisionShape2D" parent="PlayerFootArea" groups=["PlayerFootCollider"]]

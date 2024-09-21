@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dba8nwropc8uu"
-path="res://.godot/imported/Brick.png-37c6980d5a7b5524c75fd35a5c993871.ctex"
+uid="uid://8l3htm68p8f6"
+path="res://.godot/imported/AssemblyLine.png-c5801afb6ef329e6d6d74332bb21e8d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Brick.png"
-dest_files=["res://.godot/imported/Brick.png-37c6980d5a7b5524c75fd35a5c993871.ctex"]
+source_file="res://Art/AssemblyLine.png"
+dest_files=["res://.godot/imported/AssemblyLine.png-c5801afb6ef329e6d6d74332bb21e8d4.ctex"]
 
 [params]
 

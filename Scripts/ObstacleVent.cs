@@ -18,8 +18,8 @@ public partial class ObstacleVent : Node2D
         _random = new Random();
         _obstacles = new List<Brick>();
 
-        _spawnPositionA = new Vector2(0, 700 - Position.Y);
-        _spawnPositionB = new Vector2(-150, 850 - Position.Y);
+        _spawnPositionA = new Vector2(0, 720 - Position.Y);
+        _spawnPositionB = new Vector2(-150, 830 - Position.Y);
 
         
         _timer = GetNode<Timer>("ObstacleSpawnTimer");

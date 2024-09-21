@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dba8nwropc8uu"
-path="res://.godot/imported/Brick.png-37c6980d5a7b5524c75fd35a5c993871.ctex"
+uid="uid://b08w2bvjx6y1s"
+path="res://.godot/imported/FrontLamp.png-7e8fdf839aaa59708b6ded90373e4698.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Brick.png"
-dest_files=["res://.godot/imported/Brick.png-37c6980d5a7b5524c75fd35a5c993871.ctex"]
+source_file="res://Art/FrontLamp.png"
+dest_files=["res://.godot/imported/FrontLamp.png-7e8fdf839aaa59708b6ded90373e4698.ctex"]
 
 [params]
 

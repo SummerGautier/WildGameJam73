@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgob0edjxhn74"
-path="res://.godot/imported/AssemblyLinePlaceHolder.png-f4d7a9972d76ab592b96d7591cc8bc12.ctex"
+uid="uid://cyt2oqybj7fym"
+path="res://.godot/imported/FarLamp.png-a334cd6715b8ce44c7bb4f9b00dc06fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/AssemblyLinePlaceHolder.png"
-dest_files=["res://.godot/imported/AssemblyLinePlaceHolder.png-f4d7a9972d76ab592b96d7591cc8bc12.ctex"]
+source_file="res://Art/FarLamp.png"
+dest_files=["res://.godot/imported/FarLamp.png-a334cd6715b8ce44c7bb4f9b00dc06fa.ctex"]
 
 [params]
 

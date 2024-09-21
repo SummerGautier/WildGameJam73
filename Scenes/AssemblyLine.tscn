@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://fl7rdwxeuaqg"]
 
-[ext_resource type="Texture2D" uid="uid://cgob0edjxhn74" path="res://Art/AssemblyLinePlaceHolder.png" id="1_q0gk3"]
+[ext_resource type="Texture2D" uid="uid://8l3htm68p8f6" path="res://Art/AssemblyLine.png" id="1_ilts3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0unv"]
 size = Vector2(1920, 170)
@@ -8,10 +8,11 @@ size = Vector2(1920, 170)
 [node name="AssemblyLine" type="Area2D" groups=["AssemblyLine"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(960, 0)
-texture = ExtResource("1_q0gk3")
+position = Vector2(956, 78)
+texture = ExtResource("1_ilts3")
 
 [node name="GroundCollider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(960, 0)
 shape = SubResource("RectangleShape2D_y0unv")
 debug_color = Color(0.509823, 0.578067, 0, 0.42)

@@ -1,22 +1,21 @@
 [gd_scene load_steps=6 format=3 uid="uid://ckhc1716tmddh"]
 
 [ext_resource type="Script" path="res://Scripts/Brick.cs" id="1_kuphh"]
+[ext_resource type="Texture2D" uid="uid://dba8nwropc8uu" path="res://Art/Brick.png" id="2_ectkt"]
 [ext_resource type="Script" path="res://Scripts/MovementSystem.cs" id="2_k44a3"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x7obg"]
-load_path = "res://.godot/imported/Brick.png-37c6980d5a7b5524c75fd35a5c993871.ctex"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bti4g"]
-size = Vector2(70, 30)
+size = Vector2(108.478, 48.9668)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_65m8s"]
-size = Vector2(108, 74)
+size = Vector2(143.749, 109.509)
 
 [node name="Brick" type="Area2D" groups=["Brick", "BrickBody"]]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_kuphh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("CompressedTexture2D_x7obg")
+texture = ExtResource("2_ectkt")
 
 [node name="BrickMovement" type="Node" parent="."]
 script = ExtResource("2_k44a3")
@@ -25,16 +24,20 @@ _jumpSpeedMultiplier = 1.9
 _allowedInputErrorPercentage = 5.0
 
 [node name="BrickVisibleNotifier" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(4.00001, 1)
-scale = Vector2(7.5, 5.1)
+position = Vector2(-7.41979, -1.25667)
+rotation = -0.593412
+scale = Vector2(11.9733, 8.25267)
 
 [node name="BrickFloorArea" type="Area2D" parent="." groups=["BrickFloor"]]
 
 [node name="BrickFloorCollider" type="CollisionShape2D" parent="BrickFloorArea" groups=["BrickFloorCollider"]]
-position = Vector2(-40.1536, 24.0605)
-rotation = 0.518363
+position = Vector2(-50.7396, 5.93612)
+rotation = 2.70177
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_bti4g")
 
 [node name="BrickBodyCollider" type="CollisionShape2D" parent="." groups=["BrickBodyCollider"]]
-position = Vector2(3, -2)
+position = Vector2(-6, 4.76837e-07)
+rotation = -0.436332
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_65m8s")
