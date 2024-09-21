@@ -40,6 +40,7 @@ texture = ExtResource("2_ln15e")
 position = Vector2(1682, 189)
 
 [node name="Graph" type="Node2D" parent="."]
+visible = false
 script = ExtResource("4_aq1k0")
 
 [node name="Background" type="Sprite2D" parent="."]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://bv0337o757a7r"]
+[gd_scene load_steps=26 format=3 uid="uid://bv0337o757a7r"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q8if5"]
 [ext_resource type="Script" path="res://Scripts/MovementSystem.cs" id="3_nc01i"]
 [ext_resource type="Texture2D" uid="uid://c4tkiwcwot10j" path="res://Art/Player/PlayerIdle.png" id="3_tg4u7"]
 [ext_resource type="Script" path="res://Scripts/AnimationSystem.cs" id="4_a4nrs"]
 [ext_resource type="Script" path="res://Scripts/InputTranslator.cs" id="4_iverj"]
+[ext_resource type="Texture2D" uid="uid://dtkvwjabsjxlc" path="res://Art/Player/PlayerRun.png" id="4_yqov6"]
 [ext_resource type="Script" path="res://Scripts/PlayerFoot.cs" id="8_gef2k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5rth0"]
@@ -47,24 +48,24 @@ region = Rect2(768, 0, 256, 256)
 atlas = ExtResource("3_tg4u7")
 region = Rect2(1024, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n437a"]
-atlas = ExtResource("3_tg4u7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6kdy"]
+atlas = ExtResource("4_yqov6")
 region = Rect2(0, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_60soq"]
-atlas = ExtResource("3_tg4u7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_bltra"]
+atlas = ExtResource("4_yqov6")
 region = Rect2(256, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_83mlj"]
-atlas = ExtResource("3_tg4u7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnw86"]
+atlas = ExtResource("4_yqov6")
 region = Rect2(512, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3qxae"]
-atlas = ExtResource("3_tg4u7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cspu"]
+atlas = ExtResource("4_yqov6")
 region = Rect2(768, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_64eii"]
-atlas = ExtResource("3_tg4u7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_2id0c"]
+atlas = ExtResource("4_yqov6")
 region = Rect2(1024, 0, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kmrag"]
@@ -111,19 +112,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n437a")
+"texture": SubResource("AtlasTexture_o6kdy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_60soq")
+"texture": SubResource("AtlasTexture_bltra")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_83mlj")
+"texture": SubResource("AtlasTexture_jnw86")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3qxae")
+"texture": SubResource("AtlasTexture_1cspu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_64eii")
+"texture": SubResource("AtlasTexture_2id0c")
 }],
 "loop": true,
 "name": &"Run",
@@ -152,9 +153,8 @@ script = ExtResource("4_a4nrs")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerAnimation"]
 position = Vector2(-30, 50)
 sprite_frames = SubResource("SpriteFrames_kmrag")
-animation = &"Idle"
-frame = 3
-frame_progress = 0.552285
+animation = &"Run"
+frame_progress = 0.586041
 
 [node name="PlayerBodyCollider" type="CollisionShape2D" parent="." groups=["PlayerBodyCollider"]]
 visible = false
@@ -164,8 +164,9 @@ shape = SubResource("CapsuleShape2D_8gj2n")
 [node name="PlayerMovement" type="Node" parent="."]
 script = ExtResource("3_nc01i")
 _jumpCurveWidth = 300.0
-_jumpCurveHeight = 300.0
-_jumpSpeedMultiplier = 1.8
+_controlPoint0Offset = Vector2(10, -50)
+_controlPoint1Offset = Vector2(150, 0)
+_jumpSpeedMultiplier = 2.3
 _allowedInputErrorPercentage = 30.0
 
 [node name="PlayerInput" type="Node" parent="."]

@@ -116,9 +116,10 @@ public partial class MovementSystem : Node
                 // check if jump just started
                 if (_previousMovement != MovementType.JUMP)
                 {
-                    _DrawJumpPath();
+                    
                     GD.Print("JUMP");
                 }
+                _DrawJumpPath();
                 // move towards jump target
                 _FollowJumpCurve();
                 _previousMovement = MovementType.JUMP;
@@ -150,6 +151,17 @@ public partial class MovementSystem : Node
         else if (_jumpPathDelta > (1 - _inputMarginOfError))
         {
             _nextMovement = MovementType.RUN;
+        }
+
+        if (_currentMovement == MovementType.JUMP)
+        {
+            if (_jumpEndPosition.X > _jumpStartPosition.X && target_direction == Cardinal.Left)
+            {
+                _jumpEndPosition.X -= 10;
+            } else if (_jumpEndPosition.X < _jumpStartPosition.X && target_direction == Cardinal.Right)
+            {
+                _jumpEndPosition.X += 10;
+            }
         }
 
         _runStartPosition = startPosition;

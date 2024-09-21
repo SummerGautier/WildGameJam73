@@ -8,7 +8,6 @@ public partial class Player : Area2D
     private InputTranslator _inputTranslator;
     private MovementSystem _movementSystem;
     private AnimationSystem _animationSystem;
-    private PlayerCollision _collisionSystem;
     private PlayerFoot _foot;
 
     private Rect2 _runBounds;
@@ -49,7 +48,6 @@ public partial class Player : Area2D
         _inputTranslator = GetNode<InputTranslator>("PlayerInput");
         _movementSystem = GetNode<MovementSystem>("PlayerMovement");
         _animationSystem = GetNode<AnimationSystem>("PlayerAnimation");
-        _collisionSystem = new PlayerCollision(this);
         _foot = GetNode<PlayerFoot>("PlayerFootArea");
         _runBounds = _assemblyLine.GetBoundary();
         
@@ -134,7 +132,7 @@ public partial class Player : Area2D
      */
     public void OnBrickCollision()
     {
-        this.Hide();
+        
     }
     public void OnAssemblerCollision()
     {
@@ -144,10 +142,6 @@ public partial class Player : Area2D
     /**
 	 * Helpers
 	 */
-    public PlayerCollision GetCollisionSystem()
-    {
-        return _collisionSystem;
-    }
 
     public PlayerFoot Foot()
     {
@@ -185,40 +179,4 @@ public partial class Player : Area2D
             );
         }
     }
-
-    public partial class PlayerCollision : Node
-    {
-        [Signal]
-        public delegate void BrickCollidedEventHandler();
-        private Player _player;
-
-        public PlayerCollision (Player player)
-        {
-            _player = player;
-        }
-    }
-
-    /**
-     * Brick Created:
-     * EmitSignal( BrickCreated(Brick))
-     * 
-     * Main.cs:
-     * OnBrickCreated:
-     *  brick.onAreaShapeEntered += Player.GetCollisionSystem().OnBrickShapeEntered
-     *  
-     * Player.OnBrickShapeEntered:
-     *  PlayerCollision.IsBrickCleared(....)
-     *  
-     * IsBrickCleared:
-     *   CollisionShape brickCollider = other_shape_node
-     *   CollisionShape playerCollider = local_shape_node
-     *   
-     *   if(other_shape_node.IsInGroup("BrickBodyCollider")):
-     *      float BrickBodySurface = other_shape_node.Position.Y - other_shape_node.rect2.size.y/2
-     *      float PlayerBottom = local_shape_node.Position.Y + local_shape_node.rec2.size.y/2
-     *      return PlayerBottom > BrickBodySurface
-     *   if(other_shape_node.IsInGroup("BrickFootCollider"):
-     *      return local_shape_node.IsInGroup("PlayerFeetCollider")
-     *
-     */   
 }
