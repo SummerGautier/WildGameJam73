@@ -25,11 +25,15 @@ public partial class Main : Node2D
         titleScreen = GD.Load<PackedScene>("res://Scenes/TitleScreen.tscn").Instantiate<TitleScreen>();
         this.AddChild(titleScreen);
         this.RemoveChild(over);
+        this.RemoveChild(instructions);
+        this.RemoveChild(winner);
 		titleScreen.StartPressed += StartGame;
+        titleScreen.InstructionsPressed += HowToPlay;
     }
 
     private void StartGame()
 	{
+        Bolt.TOTAL_COLLECTED = 0;
         game = GD.Load<PackedScene>("res://Scenes/Game.tscn").Instantiate<Game>();
 		this.AddChild(game);
         this.RemoveChild(titleScreen);

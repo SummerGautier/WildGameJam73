@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/HowToPlay.cs" id="1_f2d12"]
 [ext_resource type="Texture2D" uid="uid://dt4v1d3lwr4do" path="res://Art/HowToPlayScreen.png" id="1_n1bgd"]
 
-[node name="HowToPlayScreen" type="Node2D"]
+[node name="HowToPlayScreen" type="Node2D" node_paths=PackedStringArray("ReturnButton")]
 script = ExtResource("1_f2d12")
+ReturnButton = NodePath("Button")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_n1bgd")

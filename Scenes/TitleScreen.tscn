@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b00dd1qboma8v"]
+[gd_scene load_steps=20 format=3 uid="uid://b00dd1qboma8v"]
 
 [ext_resource type="Script" path="res://Scripts/TitleScreen.cs" id="1_nphxj"]
 [ext_resource type="Texture2D" uid="uid://but1sd8rdrhh4" path="res://Art/Background-03.png" id="2_eutv3"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://btvic7wvvt7bm" path="res://Art/ElectricPad/ElectricPadWarn.png" id="5_b6tle"]
 [ext_resource type="Texture2D" uid="uid://4g4xcoixvw0b" path="res://Art/PlayButton.png" id="5_s6gg7"]
 [ext_resource type="Texture2D" uid="uid://cfc7qj3b7rpgc" path="res://Art/HowToPlay.png" id="6_mlcvh"]
+[ext_resource type="Texture2D" uid="uid://bioft6r1r2wek" path="res://Art/PlayButton-01.png" id="8_t6u1g"]
+[ext_resource type="Texture2D" uid="uid://cibl7kv60656f" path="res://Art/HowToPlay-01.png" id="9_8sf0i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c331n"]
 size = Vector2(311.314, 39.5485)
@@ -127,11 +129,16 @@ animations = [{
 size = Vector2(536, 148)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75fyb"]
-size = Vector2(173, 68)
+size = Vector2(206.5, 96)
 
-[node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("playButton")]
+[node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("playButton", "playActive", "playInactive", "instructionsButton", "instructionsActive", "instructionsInactive")]
 script = ExtResource("1_nphxj")
 playButton = NodePath("PlayButton")
+playActive = NodePath("PlayButton/Active")
+playInactive = NodePath("PlayButton/Inactive")
+instructionsButton = NodePath("HowToPlayButton")
+instructionsActive = NodePath("HowToPlayButton/Active")
+instructionsInactive = NodePath("HowToPlayButton/Inactive")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
@@ -163,7 +170,11 @@ texture = ExtResource("4_h66g3")
 
 [node name="PlayButton" type="Area2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayButton"]
+[node name="Active" type="Sprite2D" parent="PlayButton"]
+position = Vector2(1110, 453)
+texture = ExtResource("8_t6u1g")
+
+[node name="Inactive" type="Sprite2D" parent="PlayButton"]
 position = Vector2(1110, 453)
 texture = ExtResource("5_s6gg7")
 
@@ -173,10 +184,14 @@ shape = SubResource("RectangleShape2D_2ime6")
 
 [node name="HowToPlayButton" type="Area2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="HowToPlayButton"]
-position = Vector2(232, 796)
+[node name="Active" type="Sprite2D" parent="HowToPlayButton"]
+position = Vector2(233, 800)
+texture = ExtResource("9_8sf0i")
+
+[node name="Inactive" type="Sprite2D" parent="HowToPlayButton"]
+position = Vector2(233, 800)
 texture = ExtResource("6_mlcvh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HowToPlayButton"]
-position = Vector2(233.5, 793)
+position = Vector2(241, 800)
 shape = SubResource("RectangleShape2D_75fyb")

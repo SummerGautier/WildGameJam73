@@ -9,12 +9,31 @@ public partial class TitleScreen : Node2D
 	[Export]
 	Area2D playButton;
 	private bool playClickable = false;
-    
-	public override void _Ready()
+	[Export]
+	Sprite2D playActive;
+
+	[Export]
+	Sprite2D playInactive;
+
+
+    [Signal]
+    public delegate void  InstructionsPressedEventHandler();
+
+    [Export]
+    Area2D instructionsButton;
+    private bool instructionsClickable = false;
+    [Export]
+    Sprite2D instructionsActive;
+
+    [Export]
+    Sprite2D instructionsInactive;
+    public override void _Ready()
 	{
 		playButton.MouseEntered += OnPlayEntered;
 		playButton.MouseExited += OnPlayExited;
-	}
+        instructionsButton.MouseEntered += OnInstructionsEntered;
+        instructionsButton.MouseExited += OnInstructionsExited;
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -27,15 +46,27 @@ public partial class TitleScreen : Node2D
                 return;
             }
         }
-	}
+        if (instructionsClickable)
+        {
+            if (Input.IsMouseButtonPressed(MouseButton.Left))
+            {
+                EmitSignal(SignalName.InstructionsPressed);
+                return;
+            }
+        }
+    }
 
 	public void OnPlayEntered()
 	{
+		playActive.Show();
+		playInactive.Hide();
 		playClickable = true;
 	}
 
     public void OnPlayExited()
     {
+		playInactive.Show();
+		playActive.Hide();
         playClickable = false;
     }
     
@@ -43,4 +74,24 @@ public partial class TitleScreen : Node2D
 	{
 		EmitSignal(SignalName.StartPressed);
 	}
+
+
+    public void OnInstructionsEntered()
+    {
+        instructionsActive.Show();
+        instructionsInactive.Hide();
+        instructionsClickable = true;
+    }
+
+    public void OnInstructionsExited()
+    {
+        playInactive.Show();
+        playActive.Hide();
+        playClickable = false;
+    }
+
+    public void OnInstructionsPressed()
+    {
+        EmitSignal(SignalName.InstructionsPressed);
+    }
 }
