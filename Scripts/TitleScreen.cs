@@ -9,6 +9,7 @@ public partial class TitleScreen : Node2D
 	[Export]
 	Area2D playButton;
 	private bool playClickable = false;
+    
 	public override void _Ready()
 	{
 		playButton.MouseEntered += OnPlayEntered;

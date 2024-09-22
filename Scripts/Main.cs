@@ -7,6 +7,7 @@ public partial class Main : Node2D
     private GameOver over;
     private TitleScreen titleScreen;
     private Winner winner;
+    private HowToPlay instructions;
 
 	//PrivateTitleScreen title;
 	public override void _Ready()
@@ -35,6 +36,13 @@ public partial class Main : Node2D
         game.RepairFailed += GameOver;
         game.Winner += Winner;
     }
+    private void HowToPlay()
+    {
+        instructions = GD.Load<PackedScene>("res://Scenes/HowToPlay.tscn").Instantiate<HowToPlay>();
+        this.AddChild(instructions);
+        this.RemoveChild(titleScreen);
+        instructions.ReturnPressed += TitleScreen;
+    }
     private void Winner()
     {
         winner = GD.Load<PackedScene>("res://Scenes/Winner.tscn").Instantiate<Winner>();
@@ -48,6 +56,5 @@ public partial class Main : Node2D
         over.TryAgainPressed += TitleScreen;
         this.AddChild(over);
 		this.RemoveChild(game);
-
     }
 }

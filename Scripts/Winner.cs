@@ -3,16 +3,18 @@ using System;
 
 public partial class Winner : Node2D
 {
-    [Signal]
-    public delegate void ExitPressedEventHandler();
+        [Signal]
+        public delegate void ExitPressedEventHandler();
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-	{
-	}
+        [Export]
+        Button ExitButton;
+        public override void _Ready()
+        {
+            ExitButton.Pressed += OnExitPressed;
+        }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+        public void OnExitPressed()
+        {
+            EmitSignal(SignalName.ExitPressed);
+        }
 }

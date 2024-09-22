@@ -1,12 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://blpm7r6c240v"]
+[gd_scene load_steps=3 format=3 uid="uid://blpm7r6c240v"]
 
 [ext_resource type="Script" path="res://Scripts/Winner.cs" id="1_q10kr"]
+[ext_resource type="Texture2D" uid="uid://bra0t4hte8llb" path="res://Art/WinnerScreen.png" id="2_0ikp0"]
 
-[node name="WinScreen" type="Node2D"]
+[node name="WinScreen" type="Node2D" node_paths=PackedStringArray("ExitButton")]
 script = ExtResource("1_q10kr")
+ExitButton = NodePath("Button")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_right = 1819.0
-offset_bottom = 582.0
-theme_override_font_sizes/normal_font_size = 102
-text = "YOU DID IT! YOU SAVED HIM!!!!"
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("2_0ikp0")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 892.0
+offset_top = 660.0
+offset_right = 1039.0
+offset_bottom = 735.0
+theme_override_colors/font_hover_color = Color(1, 0.852626, 0.990764, 1)
+theme_override_colors/font_color = Color(0.630138, 0.752272, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "Exit"
