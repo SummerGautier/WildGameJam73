@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://fl7rdwxeuaqg"]
+[gd_scene load_steps=6 format=3 uid="uid://fl7rdwxeuaqg"]
 
 [ext_resource type="Script" path="res://Scripts/AssemblyLine.cs" id="1_4medl"]
 [ext_resource type="Texture2D" uid="uid://8l3htm68p8f6" path="res://Art/AssemblyLine.png" id="1_ilts3"]
+[ext_resource type="PackedScene" uid="uid://q6koqg6iqstb" path="res://Scenes/ElectricPad.tscn" id="3_dbs7r"]
+[ext_resource type="Script" path="res://Scripts/MovementSystem.cs" id="4_3ccxd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0unv"]
 size = Vector2(1920, 160)
@@ -18,3 +20,26 @@ position = Vector2(965.808, -5.02292)
 rotation = 0.0174533
 shape = SubResource("RectangleShape2D_y0unv")
 debug_color = Color(0.509823, 0.578067, 0, 0.42)
+
+[node name="ElectricPad01" parent="." instance=ExtResource("3_dbs7r")]
+
+[node name="ElectricPad02" parent="." instance=ExtResource("3_dbs7r")]
+position = Vector2(-36, -4.99999)
+rotation = -0.366519
+
+[node name="ElectricPad03" parent="." instance=ExtResource("3_dbs7r")]
+position = Vector2(369, -25)
+rotation = 0.0279253
+
+[node name="ElectricPad04" parent="." instance=ExtResource("3_dbs7r")]
+position = Vector2(1243, -9)
+
+[node name="ElectricPad05" parent="." instance=ExtResource("3_dbs7r")]
+position = Vector2(1724, 3)
+
+[node name="AssemblyMovement" type="Node" parent="."]
+script = ExtResource("4_3ccxd")
+
+[node name="Notifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(974.5, 9)
+scale = Vector2(96.15, 13.7)

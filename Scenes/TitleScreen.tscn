@@ -1,0 +1,182 @@
+[gd_scene load_steps=18 format=3 uid="uid://b00dd1qboma8v"]
+
+[ext_resource type="Script" path="res://Scripts/TitleScreen.cs" id="1_nphxj"]
+[ext_resource type="Texture2D" uid="uid://but1sd8rdrhh4" path="res://Art/Background-03.png" id="2_eutv3"]
+[ext_resource type="Texture2D" uid="uid://dfdroa542kxpw" path="res://Art/TitleScreenAction.png" id="3_734mo"]
+[ext_resource type="Texture2D" uid="uid://dqjurd1e4mm73" path="res://Art/ElectricPad/ElectricPadElectrocute.png" id="4_2ufa6"]
+[ext_resource type="Texture2D" uid="uid://ia05qg23ds77" path="res://Art/Title-Overlay.png" id="4_h66g3"]
+[ext_resource type="Texture2D" uid="uid://btvic7wvvt7bm" path="res://Art/ElectricPad/ElectricPadWarn.png" id="5_b6tle"]
+[ext_resource type="Texture2D" uid="uid://4g4xcoixvw0b" path="res://Art/PlayButton.png" id="5_s6gg7"]
+[ext_resource type="Texture2D" uid="uid://cfc7qj3b7rpgc" path="res://Art/HowToPlay.png" id="6_mlcvh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c331n"]
+size = Vector2(311.314, 39.5485)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm6n2"]
+atlas = ExtResource("4_2ufa6")
+region = Rect2(0, 0, 296, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cqsw"]
+atlas = ExtResource("4_2ufa6")
+region = Rect2(296, 0, 296, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uegi0"]
+atlas = ExtResource("4_2ufa6")
+region = Rect2(592, 0, 296, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r64o7"]
+atlas = ExtResource("4_2ufa6")
+region = Rect2(888, 0, 296, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ejtl"]
+atlas = ExtResource("4_2ufa6")
+region = Rect2(1184, 0, 296, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tvo24"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cqsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uegi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ejtl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cqsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uegi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ejtl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uegi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cqsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}],
+"loop": true,
+"name": &"Electrocute",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_b6tle")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ime6"]
+size = Vector2(536, 148)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75fyb"]
+size = Vector2(173, 68)
+
+[node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("playButton")]
+script = ExtResource("1_nphxj")
+playButton = NodePath("PlayButton")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("2_eutv3")
+
+[node name="VentAction" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("3_734mo")
+
+[node name="ElectricPad" type="Area2D" parent="."]
+position = Vector2(1248, 815)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElectricPad"]
+position = Vector2(-10.1749, -11.6227)
+rotation = 2.42252
+shape = SubResource("RectangleShape2D_c331n")
+debug_color = Color(0.999866, 0, 0.0982801, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ElectricPad"]
+modulate = Color(1, 1, 1, 0.788235)
+sprite_frames = SubResource("SpriteFrames_tvo24")
+animation = &"Electrocute"
+autoplay = "Electrocute"
+frame = 10
+
+[node name="Overlay" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("4_h66g3")
+
+[node name="PlayButton" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayButton"]
+position = Vector2(1110, 453)
+texture = ExtResource("5_s6gg7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayButton"]
+position = Vector2(1125, 449)
+shape = SubResource("RectangleShape2D_2ime6")
+
+[node name="HowToPlayButton" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="HowToPlayButton"]
+position = Vector2(232, 796)
+texture = ExtResource("6_mlcvh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HowToPlayButton"]
+position = Vector2(233.5, 793)
+shape = SubResource("RectangleShape2D_75fyb")

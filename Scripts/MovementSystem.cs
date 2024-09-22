@@ -12,7 +12,7 @@ public partial class MovementSystem : Node
 
     [ExportGroup("Run Properties")]
     [Export]
-    private float _runSpeed = 500f;
+    public float _runSpeed = 500f;
 
     [ExportGroup("Jump Properties")]
     [Export]
@@ -60,6 +60,7 @@ public partial class MovementSystem : Node
 
     private float _jumpSpeed;
     private double _jumpPathDelta;
+    private bool _doubleJump;
 
     private Vector2 _jumpCurveControl0;
     private Vector2 _jumpCurveControl1;
@@ -157,10 +158,10 @@ public partial class MovementSystem : Node
         {
             if (_jumpEndPosition.X > _jumpStartPosition.X && target_direction == Cardinal.Left)
             {
-                _jumpEndPosition.X -= 10;
+                _jumpEndPosition.X -= 20;
             } else if (_jumpEndPosition.X < _jumpStartPosition.X && target_direction == Cardinal.Right)
             {
-                _jumpEndPosition.X += 10;
+                _jumpEndPosition.X += 20;
             }
         }
 
@@ -179,6 +180,12 @@ public partial class MovementSystem : Node
         else if (_jumpPathDelta > (1 - _inputMarginOfError)) // if jump is 80% done, allow registration of next jump
         {
             _nextMovement = MovementType.JUMP;
+        }else if(_jumpPathDelta <= 0.7 && this._doubleJump == false)
+        {
+            _jumpCurveControl1.Y -= 200;
+            _jumpEndPosition.X += 150;
+            _jumpPathDelta -= 0.1;
+            this._doubleJump = true;
         }
     }
 
@@ -221,7 +228,8 @@ public partial class MovementSystem : Node
 
     private void _FollowJumpCurve()
     {
-        _jumpPathDelta += Mathf.Clamp(_jumpSpeed, 0, 1); //fraction of how far along jump curve we are so far
+        double speed = (this._doubleJump) ? 0.012 : _jumpSpeed;
+        _jumpPathDelta += Mathf.Clamp(speed, 0, 1); //fraction of how far along jump curve we are so far
         Vector2 target_position = _GetPointOnJumpCurve(_jumpCurveControl0, _jumpCurveControl1, (float)_jumpPathDelta);
         EmitSignal(SignalName.JumpPositionUpdate, target_position, _jumpEndPosition, _jumpPathDelta);
 
@@ -230,7 +238,6 @@ public partial class MovementSystem : Node
     private void _ResetJump(Vector2 start_position)
     {
         int offset = (_direction.HasFlag(Cardinal.Left) ? -1 : 1);
-
         // start and end position of jump
         _jumpStartPosition = start_position; //global position
         _jumpEndPosition = new Vector2(_jumpStartPosition.X + _jumpCurveWidth * offset, _jumpStartPosition.Y);//global position
@@ -247,6 +254,7 @@ public partial class MovementSystem : Node
 
         // reset jump path progres to 0%
         _jumpPathDelta = 0;
+        _doubleJump = false;
     }
 
     private Vector2 _GetPointOnJumpCurve(Vector2 control_point_0, Vector2 control_point_1, float t)

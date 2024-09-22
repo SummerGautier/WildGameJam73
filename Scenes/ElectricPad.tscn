@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3 uid="uid://q6koqg6iqstb"]
+
+[ext_resource type="Script" path="res://Scripts/ElectricPad.cs" id="1_k6dcv"]
+[ext_resource type="Texture2D" uid="uid://btvic7wvvt7bm" path="res://Art/ElectricPad/ElectricPadWarn.png" id="2_6ky6i"]
+[ext_resource type="Texture2D" uid="uid://dqjurd1e4mm73" path="res://Art/ElectricPad/ElectricPadElectrocute.png" id="2_vl760"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c331n"]
+size = Vector2(311.314, 39.5485)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm6n2"]
+atlas = ExtResource("2_vl760")
+region = Rect2(0, 0, 296, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cqsw"]
+atlas = ExtResource("2_vl760")
+region = Rect2(296, 0, 296, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uegi0"]
+atlas = ExtResource("2_vl760")
+region = Rect2(592, 0, 296, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r64o7"]
+atlas = ExtResource("2_vl760")
+region = Rect2(888, 0, 296, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ejtl"]
+atlas = ExtResource("2_vl760")
+region = Rect2(1184, 0, 296, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tvo24"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cqsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uegi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ejtl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cqsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uegi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ejtl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r64o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uegi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cqsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6n2")
+}],
+"loop": false,
+"name": &"Electrocute",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6ky6i")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="ElectricPad" type="Area2D"]
+visible = false
+position = Vector2(859, -14)
+script = ExtResource("1_k6dcv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-10.1749, -11.6227)
+rotation = 2.42252
+shape = SubResource("RectangleShape2D_c331n")
+debug_color = Color(0.999866, 0, 0.0982801, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tvo24")
+animation = &"Electrocute"
+frame = 13
+frame_progress = 1.0

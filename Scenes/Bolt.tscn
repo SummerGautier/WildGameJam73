@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://c4ksdtconqguu"]
+
+[ext_resource type="Script" path="res://Scripts/Bolt.cs" id="1_nv4x1"]
+[ext_resource type="Texture2D" uid="uid://b14rvd5hboc8i" path="res://Art/Collectable/Bolt02.png" id="2_23b4n"]
+[ext_resource type="Texture2D" uid="uid://c7yy5a2uuot50" path="res://Art/Collectable/Bolt.png" id="2_a4ymf"]
+[ext_resource type="Texture2D" uid="uid://dt33hxav0ojbj" path="res://Art/Collectable/Bolt03.png" id="3_wwuga"]
+[ext_resource type="Texture2D" uid="uid://bimosx0ubp0hl" path="res://Art/Collectable/Bolt04.png" id="4_n0fby"]
+[ext_resource type="Texture2D" uid="uid://dgohcjh1k586p" path="res://Art/Collectable/Bolt05.png" id="5_iko41"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5dyok"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a4ymf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_23b4n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wwuga")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n0fby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_iko41")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t41uf"]
+radius = 123.968
+
+[node name="Bolt" type="Area2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_nv4x1")
+
+[node name="sprite1" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_5dyok")
+frame_progress = 0.182242
+
+[node name="sprite2" type="AnimatedSprite2D" parent="."]
+position = Vector2(54, 70)
+sprite_frames = SubResource("SpriteFrames_5dyok")
+frame_progress = 0.604744
+
+[node name="sprite3" type="AnimatedSprite2D" parent="."]
+position = Vector2(-82, 46)
+sprite_frames = SubResource("SpriteFrames_5dyok")
+frame_progress = 0.891516
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 22)
+shape = SubResource("CircleShape2D_t41uf")

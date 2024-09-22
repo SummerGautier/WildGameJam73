@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://vuianri6tnx5"]
+
+[ext_resource type="Texture2D" uid="uid://cwmmkwwdbngxt" path="res://Art/GameOverScreen.png" id="1_ty0iq"]
+[ext_resource type="Script" path="res://Scripts/GameOver.cs" id="1_xk43f"]
+
+[node name="GameOver" type="Node2D" node_paths=PackedStringArray("restartButton")]
+script = ExtResource("1_xk43f")
+restartButton = NodePath("Button")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("1_ty0iq")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 750.0
+offset_top = 651.0
+offset_right = 1085.0
+offset_bottom = 779.0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.583651, 0.166611, 0.163358, 1)
+theme_override_colors/font_color = Color(0.930986, 0.593279, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Try Again"

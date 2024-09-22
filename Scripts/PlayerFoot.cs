@@ -19,9 +19,9 @@ public partial class PlayerFoot : Area2D
         GetTree().Root.CallDeferred("add_child", this._collisionLine);
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
-        if (!this._collisionLine.IsActive())
+        if (!this._collisionLine.IsActive()) // if we're not jumping, we are on the assembler
         {
             EmitSignal(SignalName.PlayerCollidedWithAssembler);
         }
@@ -34,6 +34,7 @@ public partial class PlayerFoot : Area2D
             if (area.OverlapsArea(this._collisionLine) || !this._collisionLine.IsActive())
             {
                 EmitSignal(SignalName.PlayerCollidedWithBrick);
+                area.AddToGroup("BrickBroken", true);
             }
             return;
         }
@@ -41,6 +42,7 @@ public partial class PlayerFoot : Area2D
         {
             if (area.OverlapsArea(this._collisionLine))
             {
+                area.AddToGroup("BrickBroken", true);
                 EmitSignal(SignalName.PlayerCollidedWithBrick);
             }
         }
@@ -93,7 +95,6 @@ public partial class PlayerFoot : Area2D
 
             //set position
             this.UpdateCollisionAxis(DisplayServer.WindowGetSize().Y);
-            
         }
 
         public void UpdateCollisionAxis(float y_axis)
@@ -106,7 +107,6 @@ public partial class PlayerFoot : Area2D
 
         public override void _Process(double delta)
         {
-           // this.GlobalPosition.MoveToward(new Vector2(0, _y_axis), (float)delta);
         }
 
         public float GetSurfaceOfCollisionLine()

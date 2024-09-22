@@ -1,0 +1,189 @@
+[gd_scene load_steps=23 format=3 uid="uid://duu7xtsitaxc4"]
+
+[ext_resource type="Script" path="res://Scripts/Game.cs" id="1_jl140"]
+[ext_resource type="PackedScene" uid="uid://bv0337o757a7r" path="res://Scenes/Player.tscn" id="2_y2tch"]
+[ext_resource type="Texture2D" uid="uid://cyt2oqybj7fym" path="res://Art/FarLamp.png" id="3_ssl75"]
+[ext_resource type="PackedScene" uid="uid://tbmevhdhqrhs" path="res://Scenes/ObstacleVent.tscn" id="4_fhahm"]
+[ext_resource type="Script" path="res://Scripts/Graph.cs" id="5_v4d5o"]
+[ext_resource type="Texture2D" uid="uid://t7372xcsgqal" path="res://Art/Background-02.png" id="6_tle6u"]
+[ext_resource type="Texture2D" uid="uid://b08w2bvjx6y1s" path="res://Art/FrontLamp.png" id="7_7j7tt"]
+[ext_resource type="PackedScene" uid="uid://fl7rdwxeuaqg" path="res://Scenes/AssemblyLine.tscn" id="8_edfgw"]
+[ext_resource type="Texture2D" uid="uid://coapc1dpp6a0r" path="res://Art/progres_texture_bg.png" id="9_0ix65"]
+[ext_resource type="Script" path="res://Scripts/ProgressBar.cs" id="9_t7xu0"]
+[ext_resource type="Texture2D" uid="uid://7guttpsmsthd" path="res://Art/RepairStatusSign.png" id="9_tbeb4"]
+[ext_resource type="Texture2D" uid="uid://d3csxt60nh3fl" path="res://Art/Collectable/Bolt01.png" id="10_1luly"]
+[ext_resource type="Texture2D" uid="uid://dhky17670avyg" path="res://Art/progres_texture_fg.png" id="10_h0tnm"]
+[ext_resource type="Texture2D" uid="uid://b14rvd5hboc8i" path="res://Art/Collectable/Bolt02.png" id="11_m4s8k"]
+[ext_resource type="Texture2D" uid="uid://dt33hxav0ojbj" path="res://Art/Collectable/Bolt03.png" id="12_d6j38"]
+[ext_resource type="Texture2D" uid="uid://bimosx0ubp0hl" path="res://Art/Collectable/Bolt04.png" id="13_w06l7"]
+[ext_resource type="Texture2D" uid="uid://dgohcjh1k586p" path="res://Art/Collectable/Bolt05.png" id="14_3n4g7"]
+[ext_resource type="Script" path="res://Scripts/LevelTimer.cs" id="18_ipg1y"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kqmcy"]
+resource_local_to_scene = true
+radius = 55.0
+height = 188.816
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ejo2"]
+texture = ExtResource("9_0ix65")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vi1as"]
+texture = ExtResource("10_h0tnm")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gqhbs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_1luly")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_m4s8k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_d6j38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_w06l7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_3n4g7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 18.0
+}]
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_progress")]
+y_sort_enabled = true
+script = ExtResource("1_jl140")
+_progress = NodePath("RepairStatus")
+
+[node name="Player" parent="." node_paths=PackedStringArray("_assemblyLine") instance=ExtResource("2_y2tch")]
+position = Vector2(471, 829)
+_assemblyLine = NodePath("../AssemblyLine02")
+
+[node name="PlayerBodyCollider" parent="Player" index="1"]
+shape = SubResource("CapsuleShape2D_kqmcy")
+
+[node name="PlayerMovement" parent="Player" index="2" node_paths=PackedStringArray("_graph")]
+_graph = NodePath("../../Graph")
+
+[node name="PlayerFootArea" parent="Player" index="4"]
+_collisionLineWidth = 20.0
+
+[node name="BackLamp" type="Sprite2D" parent="."]
+z_index = -5
+position = Vector2(1121, 382)
+texture = ExtResource("3_ssl75")
+
+[node name="ObstacleVent" parent="." instance=ExtResource("4_fhahm")]
+position = Vector2(1792, 189)
+
+[node name="Graph" type="Node2D" parent="."]
+visible = false
+script = ExtResource("5_v4d5o")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -999
+position = Vector2(960, 540)
+texture = ExtResource("6_tle6u")
+
+[node name="Front Lamp" type="Sprite2D" parent="."]
+z_index = 5
+position = Vector2(637, 543)
+texture = ExtResource("7_7j7tt")
+
+[node name="AssemblyLine02" parent="." instance=ExtResource("8_edfgw")]
+z_index = -1
+position = Vector2(0, 827)
+
+[node name="ElectricPad01" parent="AssemblyLine02" index="2"]
+visible = true
+
+[node name="ElectricPad02" parent="AssemblyLine02" index="3"]
+visible = true
+
+[node name="ElectricPad03" parent="AssemblyLine02" index="4"]
+visible = true
+
+[node name="ElectricPad04" parent="AssemblyLine02" index="5"]
+visible = true
+
+[node name="ElectricPad05" parent="AssemblyLine02" index="6"]
+visible = true
+
+[node name="RepairStatus" type="ProgressBar" parent="."]
+offset_left = 282.0
+offset_top = 195.0
+offset_right = 353.0
+offset_bottom = 364.0
+theme_override_styles/background = SubResource("StyleBoxTexture_0ejo2")
+theme_override_styles/fill = SubResource("StyleBoxTexture_vi1as")
+fill_mode = 3
+script = ExtResource("9_t7xu0")
+
+[node name="Sprite2D" type="Sprite2D" parent="RepairStatus"]
+position = Vector2(-34, -92)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_tbeb4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RepairStatus"]
+position = Vector2(-94, 77)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_gqhbs")
+autoplay = "default"
+frame_progress = 0.967842
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RepairStatus/AnimatedSprite2D"]
+position = Vector2(-86.6667, 61.3333)
+scale = Vector2(0.476563, 0.529948)
+sprite_frames = SubResource("SpriteFrames_gqhbs")
+autoplay = "default"
+frame_progress = 0.967842
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="RepairStatus/AnimatedSprite2D"]
+position = Vector2(17.3333, 92)
+scale = Vector2(0.510417, 0.463542)
+sprite_frames = SubResource("SpriteFrames_gqhbs")
+autoplay = "default"
+frame_progress = 0.967842
+
+[node name="LevelTimer" type="Timer" parent="." node_paths=PackedStringArray("_label")]
+wait_time = 60.0
+one_shot = true
+autostart = true
+script = ExtResource("18_ipg1y")
+_label = NodePath("ShutDownText")
+
+[node name="ShutDownText" type="RichTextLabel" parent="LevelTimer"]
+offset_left = 1431.0
+offset_top = 46.0
+offset_right = 1802.0
+offset_bottom = 149.0
+theme_override_colors/default_color = Color(0.994157, 0.835684, 0.814056, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 48
+text = "T-60s 
+"
+
+[node name="ShutDownText2" type="RichTextLabel" parent="LevelTimer"]
+offset_left = 1389.0
+offset_top = 129.0
+offset_right = 1760.0
+offset_bottom = 169.0
+theme_override_colors/default_color = Color(1, 1, 1, 0.8)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 24
+text = "Mr. Glass Shutdown
+"
+
+[connection signal="ElectrocuteArea" from="AssemblyLine02/ElectricPad01" to="Player" method="OnElectrocute"]
+[connection signal="ElectrocuteArea" from="AssemblyLine02/ElectricPad02" to="Player" method="OnElectrocute"]
+[connection signal="ElectrocuteArea" from="AssemblyLine02/ElectricPad03" to="Player" method="OnElectrocute"]
+[connection signal="ElectrocuteArea" from="AssemblyLine02/ElectricPad04" to="Player" method="OnElectrocute"]
+[connection signal="ElectrocuteArea" from="AssemblyLine02/ElectricPad05" to="Player" method="OnElectrocute"]
+[connection signal="timeout" from="LevelTimer" to="." method="OnLevelTimerTimeout"]
+
+[editable path="Player"]
+[editable path="AssemblyLine02"]

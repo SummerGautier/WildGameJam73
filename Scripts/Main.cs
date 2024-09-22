@@ -3,42 +3,51 @@ using System;
 
 public partial class Main : Node2D
 {
-    private Player _player;
-    private ObstacleVent _obstacleVent;
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    private Game game;
+    private GameOver over;
+    private TitleScreen titleScreen;
+    private Winner winner;
+
+	//PrivateTitleScreen title;
+	public override void _Ready()
+	{
+		TitleScreen();
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+
+    private void TitleScreen()
     {
-        this._InitPlayer();
-        this._InitObstacleVent();
+        titleScreen = GD.Load<PackedScene>("res://Scenes/TitleScreen.tscn").Instantiate<TitleScreen>();
+        this.AddChild(titleScreen);
+        this.RemoveChild(over);
+		titleScreen.StartPressed += StartGame;
     }
 
-    /*
-     * Signal Action
-     */
-
-    /*
-     * Helpers & Math
-     */
-    private void _DisableSortOrder(Vector2 unused)
-    {
-        this.YSortEnabled = false;
+    private void StartGame()
+	{
+        game = GD.Load<PackedScene>("res://Scenes/Game.tscn").Instantiate<Game>();
+		this.AddChild(game);
+        this.RemoveChild(titleScreen);
+        game.RepairFailed += GameOver;
+        game.Winner += Winner;
     }
-
-    private void _EnableSortOrder()
+    private void Winner()
     {
-        this.YSortEnabled = true;
+        winner = GD.Load<PackedScene>("res://Scenes/Winner.tscn").Instantiate<Winner>();
+        this.AddChild(winner);
+        this.RemoveChild(game);
+        winner.ExitPressed += TitleScreen;
     }
+    private void GameOver()
+	{
+        over = GD.Load<PackedScene>("res://Scenes/GameOver.tscn").Instantiate<GameOver>();
+        over.TryAgainPressed += TitleScreen;
+        this.AddChild(over);
+		this.RemoveChild(game);
 
-    private void _InitPlayer()
-    {
-        _player = GetNode<Player>("Player");
-        _player.PlayerJump += _DisableSortOrder;
-        _player.PlayerJumpLanded += _EnableSortOrder;
     }
-
-    private void _InitObstacleVent()
-    {
-        _obstacleVent = GetNode<ObstacleVent>("ObstacleVent");
-    }
-
 }

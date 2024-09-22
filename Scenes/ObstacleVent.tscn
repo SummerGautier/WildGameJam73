@@ -1,15 +1,69 @@
-[gd_scene load_steps=3 format=3 uid="uid://tbmevhdhqrhs"]
+[gd_scene load_steps=9 format=3 uid="uid://tbmevhdhqrhs"]
 
 [ext_resource type="Script" path="res://Scripts/ObstacleVent.cs" id="1_0br8a"]
-[ext_resource type="Texture2D" uid="uid://dde454klq3eou" path="res://Art/ObstacleVent.png" id="1_7ej33"]
+[ext_resource type="Texture2D" uid="uid://b13vjawlnss4w" path="res://Art/Brick/VentWarmup.png" id="2_r8cwd"]
+[ext_resource type="Texture2D" uid="uid://dnn1aaw8d8hrt" path="res://Art/ObstacleVent-old.png" id="3_7o3tj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyn04"]
+atlas = ExtResource("2_r8cwd")
+region = Rect2(0, 0, 384, 388)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h263t"]
+atlas = ExtResource("2_r8cwd")
+region = Rect2(384, 0, 384, 388)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwaea"]
+atlas = ExtResource("2_r8cwd")
+region = Rect2(1152, 0, 384, 388)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qvrn"]
+atlas = ExtResource("2_r8cwd")
+region = Rect2(1536, 0, 384, 388)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fet7n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyn04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h263t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h263t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwaea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwaea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qvrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qvrn")
+}],
+"loop": false,
+"name": &"Warmup",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7o3tj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="ObstacleVent" type="Node2D"]
 script = ExtResource("1_0br8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(47, 3)
-texture = ExtResource("1_7ej33")
-
 [node name="ObstacleSpawnTimer" type="Timer" parent="."]
 wait_time = 2.435
 autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+sprite_frames = SubResource("SpriteFrames_fet7n")

@@ -39,6 +39,8 @@ PlayerFootCollider=""
 BrickFloor="Base collider of brick object."
 BrickFloorCollider=""
 AssemblyLine=""
+BrickBroken=""
+PlayerCollider=""
 
 [input]
 
