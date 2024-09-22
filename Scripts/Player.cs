@@ -103,6 +103,11 @@ public partial class Player : Area2D
             if(shock == false)
             {
                 Bolt.TOTAL_COLLECTED *= 0.5f;
+                var audio = this.GetNode<AudioStreamPlayer2D>("Shock");
+                if (!audio.Playing)
+                {
+                    audio.Play();
+                }
             }
             shock = true;
             _movementEnabled = false;
@@ -182,6 +187,11 @@ public partial class Player : Area2D
         this._movementEnabled = false;
         GD.Print("brick collision");
         _animationSystem.PlayHit(_movementSystem.GetDirection());
+        var audio = this.GetNode<AudioStreamPlayer2D>("Grunt");
+        if (!audio.Playing)
+        {
+            audio.Play();
+        }
     }
     public void OnAssemblerCollision()
     {

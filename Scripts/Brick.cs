@@ -105,8 +105,13 @@ public partial class Brick : Area2D
 		_bolt.Hide();
 		this._state = STATE.BREAKING;
 		this._animation.Play("Broken");
+        var audio = this.GetNode<AudioStreamPlayer2D>("Break");
+        if (!audio.Playing)
+        {
+            audio.Play();
+        }
 
-	}
+    }
 
 	private void _OnAnimationFinished()
 	{

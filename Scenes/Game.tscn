@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://duu7xtsitaxc4"]
+[gd_scene load_steps=26 format=3 uid="uid://duu7xtsitaxc4"]
 
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_jl140"]
 [ext_resource type="PackedScene" uid="uid://bv0337o757a7r" path="res://Scenes/Player.tscn" id="2_y2tch"]
@@ -18,6 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://bimosx0ubp0hl" path="res://Art/Collectable/Bolt04.png" id="13_w06l7"]
 [ext_resource type="Texture2D" uid="uid://dgohcjh1k586p" path="res://Art/Collectable/Bolt05.png" id="14_3n4g7"]
 [ext_resource type="Script" path="res://Scripts/LevelTimer.cs" id="18_ipg1y"]
+[ext_resource type="AudioStream" uid="uid://dndbo4kmbdo13" path="res://Music/SFX/power-up-type-1-230548.mp3" id="18_qldbk"]
+[ext_resource type="AudioStream" uid="uid://bge3inw25xwux" path="res://Music/Music/factory_basement.mp3" id="19_7damq"]
+[ext_resource type="AudioStream" uid="uid://8jdga1wf653l" path="res://Music/SFX/gated-drop-sound-effect-240900.mp3" id="19_u5deu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kqmcy"]
 resource_local_to_scene = true
@@ -148,6 +151,14 @@ sprite_frames = SubResource("SpriteFrames_gqhbs")
 autoplay = "default"
 frame_progress = 0.967842
 
+[node name="PowerUp" type="AudioStreamPlayer2D" parent="RepairStatus"]
+stream = ExtResource("18_qldbk")
+volume_db = -19.724
+
+[node name="PowerDown" type="AudioStreamPlayer2D" parent="RepairStatus"]
+stream = ExtResource("19_u5deu")
+volume_db = -0.3
+
 [node name="LevelTimer" type="Timer" parent="." node_paths=PackedStringArray("_label")]
 wait_time = 60.0
 one_shot = true
@@ -177,6 +188,11 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 24
 text = "Mr. Glass Shutdown
 "
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_7damq")
+autoplay = true
+parameters/looping = true
 
 [connection signal="ElectrocuteArea" from="AssemblyLine02/ElectricPad01" to="Player" method="OnElectrocute"]
 [connection signal="ElectrocuteArea" from="AssemblyLine02/ElectricPad02" to="Player" method="OnElectrocute"]

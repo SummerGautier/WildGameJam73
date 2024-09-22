@@ -72,10 +72,16 @@ public partial class ElectricPad : Area2D
 	{
 		if (this.Visible && this._state != STATE.ELECTROCUTE)
 		{
-			GD.Print("ELECTROCUTE");
+            var audio = this.GetNode<AudioStreamPlayer2D>("Shock");
+            if (!audio.Playing)
+            {
+                audio.Play();
+            }
+            GD.Print("ELECTROCUTE");
 			this._state = STATE.ELECTROCUTE;
 			this._animation.Play("Electrocute");
 			time = Time.GetTicksMsec();
+
 		}
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b00dd1qboma8v"]
+[gd_scene load_steps=21 format=3 uid="uid://b00dd1qboma8v"]
 
 [ext_resource type="Script" path="res://Scripts/TitleScreen.cs" id="1_nphxj"]
 [ext_resource type="Texture2D" uid="uid://but1sd8rdrhh4" path="res://Art/Background-03.png" id="2_eutv3"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cfc7qj3b7rpgc" path="res://Art/HowToPlay.png" id="6_mlcvh"]
 [ext_resource type="Texture2D" uid="uid://bioft6r1r2wek" path="res://Art/PlayButton-01.png" id="8_t6u1g"]
 [ext_resource type="Texture2D" uid="uid://cibl7kv60656f" path="res://Art/HowToPlay-01.png" id="9_8sf0i"]
+[ext_resource type="AudioStream" uid="uid://dvdwjo0hg52ud" path="res://Music/Music/factory_office.mp3" id="11_vfpdg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c331n"]
 size = Vector2(311.314, 39.5485)
@@ -195,3 +196,8 @@ texture = ExtResource("6_mlcvh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HowToPlayButton"]
 position = Vector2(241, 800)
 shape = SubResource("RectangleShape2D_75fyb")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_vfpdg")
+autoplay = true
+parameters/looping = true

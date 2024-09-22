@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bv0337o757a7r"]
+[gd_scene load_steps=40 format=3 uid="uid://bv0337o757a7r"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_q8if5"]
 [ext_resource type="Texture2D" uid="uid://c7y44bmkkymtn" path="res://Art/Player/PlayerHit.png" id="3_el4gr"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://dtkvwjabsjxlc" path="res://Art/Player/PlayerRun.png" id="4_yqov6"]
 [ext_resource type="Texture2D" uid="uid://0060etetddsq" path="res://Art/Player/PlayerShock.png" id="6_3o0yc"]
 [ext_resource type="Script" path="res://Scripts/PlayerFoot.cs" id="8_gef2k"]
+[ext_resource type="AudioStream" uid="uid://tr2kdy65n64x" path="res://Music/SFX/electric-shock-short-circuit-4-204986.mp3" id="11_q4414"]
+[ext_resource type="AudioStream" uid="uid://b2784y30n5hdn" path="res://Music/SFX/grunt-1-85280.mp3" id="12_j2an8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txu1l"]
 atlas = ExtResource("3_el4gr")
@@ -364,3 +366,10 @@ _collisionLineWidth = 10.0
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_8n22a")
 debug_color = Color(0.993111, 0, 0.242414, 0.42)
+
+[node name="Shock" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_q4414")
+
+[node name="Grunt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_j2an8")
+volume_db = 7.621

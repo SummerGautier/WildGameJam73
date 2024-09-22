@@ -1,48 +1,62 @@
-[gd_scene load_steps=9 format=3 uid="uid://tbmevhdhqrhs"]
+[gd_scene load_steps=11 format=3 uid="uid://tbmevhdhqrhs"]
 
 [ext_resource type="Script" path="res://Scripts/ObstacleVent.cs" id="1_0br8a"]
-[ext_resource type="Texture2D" uid="uid://b13vjawlnss4w" path="res://Art/Brick/VentWarmup.png" id="2_r8cwd"]
-[ext_resource type="Texture2D" uid="uid://dnn1aaw8d8hrt" path="res://Art/ObstacleVent-old.png" id="3_7o3tj"]
+[ext_resource type="Texture2D" uid="uid://dswch6bj27pij" path="res://Art/ObstacleVent/ObstacleVent.png" id="2_spuhe"]
+[ext_resource type="Texture2D" uid="uid://dp0vwa60ml1wq" path="res://Art/ObstacleVent/ObstacleVent-old.png" id="3_cq0lx"]
+[ext_resource type="AudioStream" uid="uid://e72eqnwjjqqq" path="res://Music/SFX/obstacle_vent_charge.mp3" id="4_tlwgc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xyn04"]
-atlas = ExtResource("2_r8cwd")
+[sub_resource type="AtlasTexture" id="AtlasTexture_r06xk"]
+atlas = ExtResource("2_spuhe")
 region = Rect2(0, 0, 384, 388)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h263t"]
-atlas = ExtResource("2_r8cwd")
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7avl"]
+atlas = ExtResource("2_spuhe")
 region = Rect2(384, 0, 384, 388)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kwaea"]
-atlas = ExtResource("2_r8cwd")
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdqcm"]
+atlas = ExtResource("2_spuhe")
+region = Rect2(768, 0, 384, 388)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahafn"]
+atlas = ExtResource("2_spuhe")
 region = Rect2(1152, 0, 384, 388)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1qvrn"]
-atlas = ExtResource("2_r8cwd")
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2fbq"]
+atlas = ExtResource("2_spuhe")
 region = Rect2(1536, 0, 384, 388)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fet7n"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xyn04")
+"texture": SubResource("AtlasTexture_r06xk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h263t")
+"texture": SubResource("AtlasTexture_r06xk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h263t")
+"texture": SubResource("AtlasTexture_u7avl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kwaea")
+"texture": SubResource("AtlasTexture_u7avl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kwaea")
+"texture": SubResource("AtlasTexture_xdqcm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1qvrn")
+"texture": SubResource("AtlasTexture_xdqcm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1qvrn")
+"texture": SubResource("AtlasTexture_ahafn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahafn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2fbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2fbq")
 }],
 "loop": false,
 "name": &"Warmup",
@@ -50,7 +64,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_7o3tj")
+"texture": ExtResource("3_cq0lx")
 }],
 "loop": true,
 "name": &"default",
@@ -67,3 +81,7 @@ autostart = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2
 sprite_frames = SubResource("SpriteFrames_fet7n")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_tlwgc")
+volume_db = -34.517

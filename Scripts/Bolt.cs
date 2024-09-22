@@ -58,6 +58,11 @@ public partial class Bolt : Area2D
         {
             this.Hide();
             TOTAL_COLLECTED+=value;
+            var audio = this.GetNode<AudioStreamPlayer2D>("collect");
+            if (!audio.Playing)
+            {
+                audio.Play();
+            }
         }
     }
 

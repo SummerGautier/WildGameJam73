@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://ckhc1716tmddh"]
+[gd_scene load_steps=25 format=3 uid="uid://ckhc1716tmddh"]
 
 [ext_resource type="Script" path="res://Scripts/Brick.cs" id="1_kuphh"]
 [ext_resource type="Texture2D" uid="uid://4u5h8vo2chcj" path="res://Art/Brick/BrickIdle.png" id="2_1vrnk"]
 [ext_resource type="Texture2D" uid="uid://deiddr2hmo03g" path="res://Art/Brick/BrickBroken.png" id="2_hj2my"]
 [ext_resource type="Script" path="res://Scripts/MovementSystem.cs" id="2_k44a3"]
 [ext_resource type="Texture2D" uid="uid://cjq8d25k24c6w" path="res://Art/Brick/BrickMold.png" id="4_hlcpl"]
+[ext_resource type="AudioStream" uid="uid://c0nsr2p31fyup" path="res://Music/SFX/small-rock-break-194553.mp3" id="6_512ob"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n7g40"]
 atlas = ExtResource("2_hj2my")
@@ -188,3 +189,6 @@ shape = SubResource("RectangleShape2D_bti4g")
 position = Vector2(-6, 4.76837e-07)
 rotation = -0.436332
 shape = SubResource("RectangleShape2D_65m8s")
+
+[node name="Break" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_512ob")

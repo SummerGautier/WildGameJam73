@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://fl7rdwxeuaqg"]
+[gd_scene load_steps=7 format=3 uid="uid://fl7rdwxeuaqg"]
 
 [ext_resource type="Script" path="res://Scripts/AssemblyLine.cs" id="1_4medl"]
 [ext_resource type="Texture2D" uid="uid://8l3htm68p8f6" path="res://Art/AssemblyLine.png" id="1_ilts3"]
 [ext_resource type="PackedScene" uid="uid://q6koqg6iqstb" path="res://Scenes/ElectricPad.tscn" id="3_dbs7r"]
 [ext_resource type="Script" path="res://Scripts/MovementSystem.cs" id="4_3ccxd"]
+[ext_resource type="AudioStream" uid="uid://qpeck1gdkhn0" path="res://Music/SFX/assembly_line_basement.mp3" id="5_bd4hq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0unv"]
 size = Vector2(1920, 160)
@@ -43,3 +44,8 @@ script = ExtResource("4_3ccxd")
 [node name="Notifier" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(974.5, 9)
 scale = Vector2(96.15, 13.7)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_bd4hq")
+autoplay = true
+parameters/looping = true

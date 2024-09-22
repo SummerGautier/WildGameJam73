@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4ksdtconqguu"]
+[gd_scene load_steps=10 format=3 uid="uid://c4ksdtconqguu"]
 
 [ext_resource type="Script" path="res://Scripts/Bolt.cs" id="1_nv4x1"]
 [ext_resource type="Texture2D" uid="uid://b14rvd5hboc8i" path="res://Art/Collectable/Bolt02.png" id="2_23b4n"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dt33hxav0ojbj" path="res://Art/Collectable/Bolt03.png" id="3_wwuga"]
 [ext_resource type="Texture2D" uid="uid://bimosx0ubp0hl" path="res://Art/Collectable/Bolt04.png" id="4_n0fby"]
 [ext_resource type="Texture2D" uid="uid://dgohcjh1k586p" path="res://Art/Collectable/Bolt05.png" id="5_iko41"]
+[ext_resource type="AudioStream" uid="uid://bnivotv5skyux" path="res://Music/SFX/coin-collect-retro-8-bit-sound-effect-145251.mp3" id="7_6vsoy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5dyok"]
 animations = [{
@@ -55,3 +56,7 @@ frame_progress = 0.891516
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 22)
 shape = SubResource("CircleShape2D_t41uf")
+
+[node name="collect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_6vsoy")
+volume_db = 9.862

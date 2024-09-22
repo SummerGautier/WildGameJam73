@@ -47,6 +47,9 @@ public partial class ObstacleVent : Node2D
         {
             EmitSignal(SignalName.BrickCreated, _CreateBrick());
         }
+        var audio = this.GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
+   
+            audio.Play();
     }
 
     private void _CircularMove(double delta)

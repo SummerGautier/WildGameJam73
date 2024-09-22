@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://q6koqg6iqstb"]
+[gd_scene load_steps=12 format=3 uid="uid://q6koqg6iqstb"]
 
 [ext_resource type="Script" path="res://Scripts/ElectricPad.cs" id="1_k6dcv"]
 [ext_resource type="Texture2D" uid="uid://btvic7wvvt7bm" path="res://Art/ElectricPad/ElectricPadWarn.png" id="2_6ky6i"]
 [ext_resource type="Texture2D" uid="uid://dqjurd1e4mm73" path="res://Art/ElectricPad/ElectricPadElectrocute.png" id="2_vl760"]
+[ext_resource type="AudioStream" uid="uid://tr2kdy65n64x" path="res://Music/SFX/electric-shock-short-circuit-4-204986.mp3" id="4_1sa4d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c331n"]
 size = Vector2(311.314, 39.5485)
@@ -101,3 +102,7 @@ sprite_frames = SubResource("SpriteFrames_tvo24")
 animation = &"Electrocute"
 frame = 13
 frame_progress = 1.0
+
+[node name="Shock" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1sa4d")
+volume_db = -17.722
